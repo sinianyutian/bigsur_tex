@@ -1,0 +1,94 @@
+
+\appendix 
+
+\section{Representing Boolean Operators in a BIP}
+
+
+In this appendix, we note that arbitrary Boolean relationships ($\land$, $\lor$, $\oplus$, $\neg$, $=$ etc.) can be encoded as IP constraints with additional variables and constraints (see \cite{optBook08}); such variables are omitted from the main text, but some examples are given in Table~\ref{table:ops}. %http://cs.stackexchange.com/questions/12102/express-boolean-logic-operations-in-zero-one-integer-linear-programming-ilp
+%
+%We leave the implementation of $\neg$ as future work. 
+Modern IP solvers~\cite{gurobi} are very efficient at solving such trivially constrained sets of variables.
+% 
+Finally, we recall that the logical disjuction of a binary selection vector,
+%
+$$
+r = \chi_1 \lor \dots \lor \chi_n,
+$$
+%
+can be more efficiently implemented as a summation, given that only one element will take the value 1, as
+%
+$$
+r = \sum_{i=1}^n \chi_i.
+$$
+ 
+
+
+\begin{table}[h]
+\begin{center}
+\caption{Expressing Boolean operations in a BIP.}
+\label{table:ops}
+\begin{tabular}{|c|c|c|c|} 
+  \hline
+  \small
+expression & $c = a \land b$ &  $c = a \oplus b$ &  $c = a \lor b$ \\
+\hline
+ \hline
+BIP encoding & $\begin{aligned} c &\ge a + b - 1\\ c &\le a\\ c &\le b, \end{aligned}$ &
+$\begin{aligned}c &\le a + b\\ c &\ge a-b \\ c &\ge b-a\\ c &\le 2-a-b\end{aligned}$ &
+$\begin{aligned}c &\le a + b\\c &\ge a\\c &\ge b\end{aligned}$ \\
+ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+\if0
+For example, we may calculate the value of $c = a \land b$ as
+%
+\neu{
+\begin{align*}
+c &\ge a + b - 1\\ 
+c &\le a\\
+c &\le b,
+\end{align*}}
+%
+%
+%
+the value of $c = a \oplus b$ as
+%
+\begin{align*}
+c &\le a + b\\
+c &\ge a-b\\
+c &\ge b-a\\
+c &\le 2-a-b,
+\end{align*}
+
+and $c= a \lor b$ as
+%
+\begin{align*}
+c &\le a + b\\
+c &\ge a\\
+c &\ge b.
+\end{align*}
+\fi
+ 
+ 
+ 
+\section{Avoiding Bad Geometry}
+
+\begin{wrapfigure}[8]{r}{0.4\columnwidth}
+\vspace*{-.35in}
+\hspace*{-.2in}
+  \includegraphics[width=0.45\columnwidth]{../images/partition/bad.png}
+\end{wrapfigure}
+The ground tessellation, $\mathbb{G}$, is created by a variety of data sources. Hence, it can contain unlikely combinations of edge selections that we wish to avoid. For example, edges that are parallel, and in close proximity with one another, may create skinny \footprintpolygons, while pairs of edges with a small angle between them may produce pointed polygons. Such details are un-architectural, and we can optionally add a term to our optimization that penalizes undesirable pairs of edges within a polygon (this term was used in the \LondonRS~example shown in Figure~\ref{fig:teaser}).
+
+We find pairs of edges within each face that we wish to penalize, $\te{bad}(\mathbb{G})$. This set contains pairs of edges that are approximately parallel, and less than 2.5m apart, or are adjacent with an angle less than $30^\circ$ (pairs of such lines are shown in pink and blue in the above inset). 
+Entries from this set can be discouraged by only selecting one edge from each pair; we model such a penalty term as
+%
+$$O_7 (\{ \isEdge^k \}) := \sum_{(\edge_i,\edge_j) \in \te{bad}(\mathbb{G})} \isEdge^i \land  \isEdge^j $$
+with a large weight of \neu{$\alpha_{7} =  0.5 \sum_{\edge_k \in \mathbb{G}}  \|\edge_k\|.$}
+
+\pagebreak

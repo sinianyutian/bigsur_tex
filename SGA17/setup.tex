@@ -1,0 +1,91 @@
+
+
+
+\section{Problem Setup}
+\label{sec:setup}
+
+
+
+\begin{figure}[t!]
+    \centering
+  \def\svgwidth{1\columnwidth}  
+    \input{../images/megafacades/overview2.pdf_tex}
+    \caption{{\it Overview.} Starting from \GISds, a coarse 3D mesh, and \streetI, we extract a set of \sweepedges, $\mathcal{S}$, a set of \cleanprofiles, $\mathcal{C}$, and a set of \buildingfacades, $\mathcal{B}$. These are then globally optimized to produce a semantically parsed building block as output.}
+    \label{fig:setup}
+    \vspace*{-.07in}
+\end{figure}
+
+Our system takes input from three sources --- publicly available \GISds, a coarse 3D mesh, and street-level \facade\ images --- with the goal of reconstructing a high-quality semantic model of an urban area. 
+%
+Since the different input sources have complementary strengths and weaknesses, we first process them individually to extract three types of entities: {\em \sweepedges}, {\em \cleanprofiles}, and {\em \buildingfacades}. 
+%
+In the following, we describe these entities, while deferring the details of how they are computed to Section~\ref{sec:processing}; the global optimization, which fuses them to produce the \outputM, is discussed in Section~\ref{sec:globopt}. Figure~\ref{fig:setup} presents an overview of our framework. 
+
+\subsection{\GISds} 
+Typically, an urban building block consists of several densely packed buildings (up to 100 buildings in our examples). 
+While \GISds~(see~\cite{osm}) provide an accurate ownership record, 
+surprisingly they provide little usable information concerning a building's physical walls and partitions, making it challenging to use these data directly for reconstruction. However, we found that they carry a mixture of accurate and noisy orientation information, which we utilize to regularize the processing of other data sources.
+
+
+\subsection{Coarse 3D mesh} 
+A 3D mesh or polygon soup (e.g., obtained via multi-view stereo or \lidar scans) provides approximate, incomplete, noisy, \neu{but large-scale} geometric information. 
+We process such meshes to produce two entities: horizontal \emph{\sweepedges} and vertical \emph{\cleanprofiles} (see Figure~\ref{fig:terminology}); such \sweepedges are extruded along \cleanprofiles to create a mass model.
+% 
+Specifically, we extract a set of lines, referred to as \sweepedges, $\mathcal{S}$, on the ground-plane by identifying likely \facades over the mesh. 
+Along these \sweepedges, we vertically slice the mesh to create many \emph{\rawprofiles}; these are clustered, averaged, and abstracted to create a \emph{set} of \emph{\cleanprofiles}, $\mathcal{C}$ (see Figure~\ref{fig:terminology} and Section~\ref{sec:profiles}).
+%
+Direct reconstruction from these \sweepedges and \cleanprofiles is challenging as PEs require watertight \footprintpolygons, with a \cleanprofile assigned to each edge. Specifically, there are two sources of difficulty: the \sweepedges have gaps, may self-intersect, or even be missing entirely in regions, while the \cleanprofiles are the output of local analysis, thus lacking information about building partitions and containing different sources of noise (e.g., from initial reconstruction, trees, or vehicles).
+
+\begin{figure}[t]
+    \centering
+     \def\svgwidth{1\columnwidth}  
+    \input{../images/megafacades/term.pdf_tex}
+    \caption{\neu{{\it Terminology.} Left: The data are used to create \streetI with associated \facade planes (orange), \rawprofiles (blue) and \sweepedges (pink). Center: These are processed to create the input to the optimization --- a smaller set of \cleanprofiles (blue), \buildingfacades (orange lines), and \buildingfacadepoints (orange points), and a \groundplane tessellation consisting of \sweepedges (pink) and \softedges (black) enclosing \faces. Right: The output of the optimization is a collection of watertight \footprintpolygons (pink and purple), with a \cleanprofile assigned to every edge, and positions for every \buildingfacade (orange).}}
+    \label{fig:terminology}
+    %\vnudge
+\end{figure}
+
+
+\subsection{Street-level \facade\  images}  
+Complementary to the above data sources, street-level imagery provides  information over portions of the urban blocks. Such images typically come with estimates of camera position and orientation.
+For each image, we use a convolutional neural network (CNN) based supervised classifier (see Section~\ref{sec:cnns}) to detect the rectangular bounds of a \facade as well as elements such as windows, doors, and balconies. We refer to this rectangular \facade containing a collection of extracted elements as a \emph{\buildingfacade} (see Figure~\ref{fig:terminology}). Each side of a city block will typically consist of multiple overlapping \buildingfacades: one from each of the images. However, such raw \buildingfacades, $\mathcal{B}$, may contain position and orientation errors, have inconsistent scales, sometimes overlap, or be incomplete (e.g., occluded by trees, vehicles, or scaffolding). \neu{The \groundplane location of the observed start or end of a \buildingfacade in the \streetI is referred to as a \emph{\buildingfacadepoint}.}
+
+These three data sources are in three different coordinate systems, and may introduce conflicting information, making their combination challenging.  
+Further, each is subject to reprojection and inherent noise, both within and between datasets. For example, we found that the given location and orientation of \buildingfacades varied on different sides of a building due to GPS or GIS errors. Poor correlation between the image and 3D mesh was sometimes observed because of differing scale estimates or changes in the environment (e.g., buildings had been constructed, modified, or demolished). 
+
+
+%%%%%%%%%%%%
+
+\subsection{Notation}
+\label{sec:notation}
+%
+Before we formulate the main binary integer program~(BIP) that processes these inputs, we first introduce some notation. We use \sweepedges, $\mathcal{S}$, to oversegment the \groundplane ($y=0$) to form a tessellation of faces, $\mathbb{G}$, as described in Section~\ref{subsec:formulation}. 
+%
+Our algorithm determines whether or not each edge, $\edge_k \in \mathbb{G}$,  should be selected, thus implicitly encoding the final building \footprintpolygons. We represent this selection with a binary indicator variable,  $\isEdge^k$, such that $\isEdge^k=1$ if the edge, $\edge_k$, is selected and forms part of a \footprintpolygon,\sout{ (selected edges are referred to as \emph{\planedges},} and $\isEdge^k=0$ otherwise. 
+%
+Note that in densely built urban areas, even though adjacent buildings can share a common wall, the structures often have different heights or roofs.
+We encode such a situation by  two, possibly different, profiles associated with the two sides of each interior wall, $\edge^k$. (For the remainder of the paper, we discuss one such profile per edge, while the other one is similarly treated.)  We denote the length of any edge, $\edge_k$, as $\|\edge_k\|$  and the
+maximum mesh height above a point on the \groundplane, $(x,z) \in \mathbb{R}^2$, 
+as 
+$\height{}(x,z).$
+
+
+We use logic operators (such as $\land, \lor, \oplus, \neg$) noting that each can be expressed in BIP constraints with additional variables (detailed in Appendix A).
+We will not explicitly introduce such extra variables and constraints, but we use the logic operator directly.
+
+Unlike $\isEdge^k$, which is an individual binary variable, we will have cause to represent categorical variables (such as color or profile choice) using \emph{selection vectors}. Note they are also called `one hot vectors' in the literature.
+We denote a selection vector of length $n$ as $\mathbold{\chi}:=(\chi_1,\dots,\chi_n)$; each element (such as $\chi_1$) is a binary variable. Selection vectors have {\em exactly} one element set to one, while the others are all zero. We encode this condition  with the constraint
+\sout{by requiring each bit $\chi_i\in\{0,1\}$ and the \sout{side }constraint:}
+$
+\sum_{i=1}^n{\chi_i} = 1.
+$
+We will wish to compare two selection vectors. For example, given $\mathbold{\chi}:=(\chi_1...\chi_n)$ and $\mathbold{\psi}:=(\psi_1...\psi_n)$, we desire an output of $0$ if all elements are equal (i.e., $\chi_i = \psi_i, \; \forall i$), and $1$ otherwise. To simplify notation in this situation, we  write
+\isDifferent{\mathbold{\chi}, \mathbold{\psi}}\ to indicate 
+$$
+\isDifferent{\mathbold{\chi},
+\mathbold{\psi}} = (\chi_1 \oplus \psi_1)\lor \dots \lor (\chi_n \oplus \psi_n). 
+$$
+Note that the above macro describes a set of variables and constraints to be added to the BIP. 
+
+
+

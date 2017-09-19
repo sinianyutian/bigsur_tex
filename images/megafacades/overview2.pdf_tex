@@ -1,0 +1,64 @@
+%% Creator: Inkscape inkscape 0.92.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'overview2.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{302.23251343bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.521447)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{overview2.pdf}}%
+    \put(0.837151,0.48636857){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Section~\ref{sec:globopt}}}}%
+    \put(0.1405037,0.27552896){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mesh}}}%
+    \put(0.837151,0.02134455){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Section~\ref{sec:post} \& \ref{sec:results}}}}%
+    \put(0.45360267,0.02198041){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Section~\ref{sec:cnns}}}}%
+    \put(0.45800064,0.17280467){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$\mathcal{B}$}}}%
+    \put(0.14529892,0.1736949){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Images}}}%
+    \put(0.45497395,0.40241034){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$\mathcal{S}$ \& $\mathcal{C}$}}}%
+    \put(0.45360267,0.48636857){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Section~\ref{sec:profiles}}}}%
+    \put(0.13828148,0.42851985){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{GIS}}}%
+    \put(0.83659332,0.37910033){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Optimization}}}%
+  \end{picture}%
+\endgroup%

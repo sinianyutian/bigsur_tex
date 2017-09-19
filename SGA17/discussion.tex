@@ -1,0 +1,56 @@
+
+
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+
+We present a system to fuse partial and heterogeneous sources of data, specifically building footprints from GIS databases, polygonal meshes (polygon soup), and \streetI, to produce 
+plausible \outputMs\ for densely-built \blocks.  Technically, we achieve this by formulating a binary integer program that {\em simultaneously} considers how to partition the \groundplane, assign profiles, and position \buildingfacades.
+In the process, we globally balance information from  
+incomplete and inconsistent input data to produce a semantically consistent \outputM. We evaluated our system on large scale datasets, spanning multiple urban blocks, to produce semantic results at a scale and quality not previously possible using state-of-the-art automated workflows. 
+Incidentally, we introduced a new CNN for detecting \facade elements (e.g., windows, doors, etc.) on real-world images, and a mesh processing framework to decompose architectural meshes into footprints and profiles.
+
+Our work opens up several future research directions. As an immediate next step, we would like to evaluate our CNN on other city datasets, and collect additional training data (i.e., labels) on \facade images from a wider range of cities to improve classification accuracy.  
+Another interesting direction is to develop a semi-automatic system to allow users to edit inaccurate footprints, profiles, \buildingfacades, or \facade elements, to improve the output quality. For example, the user can mark a few smaller features, such as fire-escapes or air-conditioning units, which can then be used to refine city-specific feature detectors. In the longer-term, we envision a two-stage dynamic city-modeling tool, where a few city blocks are initially reconstructed using our proposed system. Once the models are approved by the user, the \outputM\ can be used to obtain a style description of buildings in the city. Such a description can then be used for wider-scale data integration, allowing us to handle large areas of missing data. Thus, the first round of results would act as a prior to synthesize missing information. This workflow would make it feasible to rapidly produce high-quality \outputMs\ of entire cities. 
+
+
+\section*{Acknowledgements} 
+\neu{
+We would like to thank the many people who contributed to this paper; the reviewers, image labellers, and others who read manuscripts, each made valuable contributions. In particular, we thank Florent Lafarge, Pierre Alliez, Pascal M{\"u}ller, and Lama Affara for providing us with comparisons, software, and sourcecode, as well as Virginia Unkefer, Robin Roussel, Carlo Innamorati, and Aron Monszpart for their feedback. This work was supported by the ERC Starting Grant (SmartGeometry StG-2013-335373), KAUST-UCL grant (OSR-2015-CCF-2533), the KAUST Office of Sponsored Research (award No. OCRF-2014-CGR3-62140401), the Salt River Project Agricultural Improvement and Power District Cooperative Agreement No. 12061288, and the Visual Computing Center (VCC) at KAUST.}
+
+
+
+\newpage
+
+
+\if0
+
+Pros:
+\begin{itemize}
+    \item Even if our results are not super accurate, the applications of creating ``plausible'' outputs are...
+    \item The robustness of the PEs for parameterizing and reconstructing interesting mass models. The equivalent shape grammar would have been expensive to optimize. 
+    \item we can represent interesting floorplans, such as courtyards or U-shaped buildings, each with arbitrary roofs.
+    \item Procedural extrusions are unstable when adjacent edges in the plan are near-parallel and near-adjacent.
+    \item Procedural extrusions with arbitrary plans and profiles are not guaranteed to terminate; we introduce measures to ensure they do.
+    \item always architectural results. Mostly plausible results, such results are useful for illustration, parameter editing to fix discrepancies and large area reconstructions.
+    \item PEs remove the problem of finding building roofs, but introduce the issues of working with non-rectangular facades.
+    \item works with partial/missing data. 
+    \item works with mixed and conflicting data sources (e.g. scaffolding in mesh but not in image, or vice-versa. Can use historical images to boost accuracy).
+    \item the system is fully automatic
+    \item Segnet = Magic.
+\end{itemize}
+
+
+Cons:
+\begin{itemize}
+    \item PEs only work well for building shaped things. Profile-distance function makes assumption that mesh has strong horizontal edges.
+    \item It doesn't worked on curved walls.
+    \item We assume correlation between roof-shapes and facades.
+    \item data collection is burden, but sources such as Google Earth and Streetview provide an ample supply of mesh and photographic data. High quality GIS data for many regions can be found with OpenStreetMap.
+    \item The optimization is slow. Future improvements in integer programming, may improve this.
+    \item there is no guarantee that there will be a wall under any given window; in this case we remove the window. 
+    \item The image feature detection only works on facade-types similar to those it has seen before.
+\end{itemize}
+\fi

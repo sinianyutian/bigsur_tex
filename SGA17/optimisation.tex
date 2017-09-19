@@ -1,0 +1,329 @@
+\section{Fusion  Optimization}
+\label{sec:globopt}
+
+
+
+
+
+So far, we have introduced: 
+(i)~a set of \sweepedges, $\mathcal{S}$ (for extraction details see Section~\ref{sec:profiles}); 
+(ii)~a set of \cleanprofiles, $\mathcal{C}$ (Section~\ref{sec:profiles}); and 
+(iii)~a set of \buildingfacades, $\mathcal{B}$ (Section~\ref{sec:cnns}).
+We continue to formulate a global optimization that fuses these entities to output a semantically parsed building block, simply referred to as the \mbox{\em \outputM} (see Figure~\ref{fig:setup}). 
+
+To achieve this, we address three key challenges: 
+(i)~identifying \textit{\footprintpolygons} for each building in the \groundplane tessellation;
+(ii)~selecting a \cleanprofile from $\mathcal{C}$ for each edge of every \footprintpolygon; and 
+(iii)~retargeting \buildingfacades from $\mathcal{B}$ to a subset of the edges of the \footprintpolygons. A good \buildingfacade location matches the mass models that are implicitly obtained by extruding the \footprintpolygons along the selected \cleanprofiles.
+
+ 
+Note that the above problems are tightly linked and must be solved together. For example, the boundary of a \footprintpolygon depends on which profiles are selected, which in turn depends on how the \buildingfacades are retargeted to match 3D mass model boundaries.
+
+
+\begin{figure}[t!]
+    \centering
+  \def\svgwidth{\columnwidth}  
+    \input{../images/megafacades/subdiv.pdf_tex}
+  \caption{{\it \Sweepedges and \softedges.} A set of \sweepedges (a, pink) are extended to oversegment the \groundplane~(b) into faces. The \sweepedges are inserted one at a time, in order of decreasing length. To complete the tessellation, the \sweepedges are extended by \emph{\softedges}~(black). The \buildingfacadepoints~(c) further subdivide the \groundplane if there are no existing similar edges. Finally, we remove faces that are mostly outside the GIS footprint (d, green) to create the tessellation, $\mathbb{G}$.}
+  \label{fig:subdiv}
+  \vnudge
+\end{figure}
+
+
+\subsection{Formulation}
+\label{subsec:formulation}
+We simultaneously address the above challenges by formulating a BIP; we next describe the optimization variables, constraints, and objective terms associated with each challenge.
+
+\subsubsection{Identifying \footprintpolygons} The input \GISds, \streetI, and 3D mesh carry noisy and incomplete information about individual buildings. This is particularly pronounced in densely built urban areas where adjacent buildings often share walls, contain courtyards, and regularly break the Manhattan-world assumption. Using the available information, we first oversegment \neu{the \groundplane into \emph{\faces} using the \sweepedges}, then merge the oversegmented regions, and finally extract the \footprintpolygons. %We start by describing the oversegmentation process. 
+
+
+
+
+First, we extend the \sweepedges in $\mathcal{S}$ to initiate the \groundplane oversegmentation (see Figure~\ref{fig:subdiv}a).
+%
+Note that only the edges created by \sweepedges have profiles, while others, called {\em \softedges}, complete the tessellation (see Figure~\ref{fig:subdiv}b).
+%
+Next, we use the estimated \buildingfacadepoints (shown as blue dots in Figure~\ref{fig:subdiv}c) from the \streetI\ to further oversegment the ground plane by adding \softedges that are perpendicular to the \buildingfacade 
+into the tessellation. All these edges indicate potential separating walls between adjacent buildings.
+%
+Finally, we discard faces that are either mostly outside the \GISds, or have a mean mesh height below a threshold (3m in our data). 
+We use $\mathbb{G}$ to denote the resulting tessellation (see Figure~\ref{fig:subdiv}d).
+
+
+
+ \begin{figure}[t!]
+    \centering
+    \def\svgwidth{\columnwidth}  
+    \input{../images/megafacades/partition.pdf_tex}
+    \caption{{\it Oversegmenting the \groundplane.}  We use \sweepedges and \GISds\ to overpartition the ground plane. 
+    Left:~The \sweepedges~(pink) along with their \softedge extensions~(black) partition the plane. Center:~Further oversegmentation based on the building-\facades extracted from \streetI\ (blue). Right:~using height and GIS information (green) we identify the interior \faces to produce the oversegmentation, $\mathbb{G}$.} 
+    \label{fig:partition}
+\end{figure}
+
+% 
+Extracting \footprintpolygons amounts to setting the BIP variables, $\isEdge^k$, for each of the edges, $\edge_k$, surrounding every \face, $f_i \in \mathbb{G}$.
+%
+However, setting up such an optimization is cumbersome, as not all values for $\{\isEdge^k\}$ result in valid partitions of the ground plane (see Figure~\ref{fig:valid}). Hence, we indirectly formulate the problem by deciding which neighboring \faces in the tessellation $\mathbb{G}$ should be merged to produce the final building \footprintpolygons.
+%
+For example, the resulting tessellation for Figure~\ref{fig:teaser} is shown in Figure~\ref{fig:partition}. 
+
+
+
+\begin{figure}[b!]
+    \centering
+  \def\svgwidth{0.8\columnwidth}  
+    \input{../images/megafacades/valid.pdf_tex}
+  \caption{\textit{Valid \footprintpolygons.} \neu{Left: A set of edges, $\{\isEdge{}\}$. Center: Two geometrically invalid partitions using those edges caused by self-grazing polygons (a), dangling edges (b), and holes in the boundary (c). Right: Valid \footprintpolygons are map-coloring solutions.}}
+  \label{fig:valid}
+\end{figure}
+
+%
+%
+%
+
+The \footprintpolygons should ideally follow the \sweepedges, while making them watertight, and should use as few \softedges as possible to fill in sections of missing data. Further, we  encourage selection of edges where there is a large height difference on either side of a sweep-edge \neu{} (e.g., between adjacent buildings). 
+%
+For each such \face $f_i \in \mathbb{G}$, we sample $\height{}(x,z)$ using the mesh data to find the mean height over the \face, $\height{}(f_i)$. This averaging adds robustness over problematic mesh features such as holes. The height difference across an edge is thus $\te{heightDiff}(\edge_k)  = |\height(f_i)-\height(f_j)|$  where $f_i$ and $f_j$ are the \faces incident to $\edge_k$.
+
+
+\pagebreak
+
+{\noindent \em Selection variables:} % 
+The \face-merging problem can be reduced to a region- (or map-) coloring problem with adjacent \faces of the same color indicating that the \faces are implicitly merged. 
+Thus, for each $f_i$, we assign a selection variable, $\mathbold{\gamma}^i$, with length 5. Although four colors are sufficient for map-coloring, we found experimentally that our BIP converges faster with an extra color.
+
+
+{\noindent \em Constraints:} 
+The edge-selection variable, $\isEdge^k$, defines if an edge, $e_k$, lies on a \footprintpolygon; usually this is because it lies between \faces of different colors.
+% 
+Thus, for all edges, $\edge_{k}$, between two faces $f_i$ and $f_j$, we require
+\begin{equation*}
+\isEdge^k = \isDifferent{\mathbold{\gamma}^i,\mathbold{\gamma}^j},    
+\end{equation*}
+which amounts to a set of variables and constraints as introduced in Section~\ref{sec:notation}.
+%
+Since all other edges, $\edge_k$, are at the boundary and must be part of a \footprintpolygon, we set their
+$\isEdge^k$ to $1$. 
+
+
+
+{\noindent \em Objective terms:} 
+In formulating the selection of edges from the tessellation, $\mathbb{G}$, we add penalties for the following conditions: 
+($O_1$)~if a \sweepedge \emph{is not} selected or a \softedge \emph{is} selected; and 
+($O_2$)~if an edge with high height differential is {\em not} selected
+
+\begin{align*}
+O_1( \{\isEdge^k\} ) &:=& 
+  &\sum_{\edge_k \in \mathbb{G}} 2 \|\edge_k\| (\neg\isEdge^k \land \hasProfileEdge{\edge_k}) \nonumber \\ 
+&&+ &\sum_{\edge_k \in \mathbb{G}}
+\|\edge_k\| (\isEdge^k \land \neg \hasProfileEdge{\edge_k}) \nonumber \\ 
+O_2( \{\isEdge^k\} ) &:=& &\sum_{\edge_k \in \mathbb{G}}  \|\edge_k\|  \; \te{heightDiff}(\edge_k) \neg \isEdge{}^k,  \nonumber
+\end{align*}
+where  
+$\hasProfileEdge{\edge_k}$ returns 1 if the edge, $\edge_k$, is a \sweepedge, or 0 if it is a \softedge.
+
+\subsubsection{Selecting \cleanprofiles} 
+%
+The input mesh data are noisy, incomplete, and often contain spurious geometry (e.g., trees or cars). Our goal is to abstract the raw input by assigning a \cleanprofile from the set, $\mathcal{C}$, to every $\edge \in \mathbb{G}$. These assigned profiles guide the \footprintpolygon extrusion, implicitly producing a clean and abstracted PE mass model. 
+
+Ideally, above each edge, the selected profile closely approximates the mesh geometry. Further, due to stability considerations when modeling with PEs, it is important that edges from adjacent and nearly parallel edges in the same \footprintpolygon select the same profile (see Figure~\ref{fig:nearParallelProfiles}). Note that this caveat does not require buildings to conform to the Manhattan-world assumption.
+
+
+
+{\noindent \em Selection variables:} 
+For every edge, $\edge_k$, we create a profile selection vector, $\mathbold{\eta}^k$, to indicate which \cleanprofile is selected from the global set, $\mathcal{C}$. The length of this vector is the size of the profile set, $\mathcal{C}$, typically 4-80 profiles.
+
+
+{\noindent \em Constraints:} 
+We wish \cleanprofile selections to be equal for parallel adjacent edges within the same \footprintpolygon. In other words, two adjacent edges that are nearly parallel can select different profiles {\em only if} the they belong to different \footprintpolygons --- i.e., there is at least one separating wall between them. 
+
+Thus, for all vertices of the tesselation, $\mathbb{G}$, we create an auxiliary variable for each pair of adjacent and approximately parallel (we use a tolerance of $0.1$ radians) edges, $\edge_j$ and $\edge_k$, as
+%
+$$\differentProfiles{}^{(j,k)} =
+\isDifferent{\mathbold{\eta}^j,\mathbold{\eta}^k}.$$
+%
+Because we allow only parallel and adjacent edges to have different profiles ($\differentProfiles{}^{(j,k)} = 1$) when there is at least one selected edge ($\isEdge{}^l$ = 1 for edge $\edge_l$) between them at their shared vertex (Figure~\ref{fig:nearParallelProfiles}), we require 
+%
+$$ \differentProfiles{}^{(j,k)} \leq \sum_{\edge_l \in \te{between}{(j,k)}} \isEdge{}^l,$$
+%
+where $\te{between}(j,k)$ denotes the set of edges lying between $\edge_j$ and $\edge_k$ and sharing a common vertex. 
+% -- ignores the fact that "between", means on the inside angle.
+We implement $\mathbb{G}$ as a half-edge data structure, which permits direct implementation of the $\te{between}()$ operator.
+
+\begin{figure}[t!]
+    \centering
+  \def\svgwidth{1\columnwidth}  
+    \input{../images/megafacades/optim2.pdf_tex}
+  \caption{{\it Undesirable \facade\ splits.} Left-center: PEs are unstable when different profiles (blue) are selected on nearly parallel edges (green); moving a single point (orange) a short distance creates a very different result.  Right: To avoid this situation, the \cleanprofiles of the adjacent parallel edges (given by the selection vectors $\mathbold{\eta}^j$ and $\mathbold{\eta}^k$) are constrained to be equal, if the dividing edge is selected ($\isEdge^l = 1$).}
+  \label{fig:nearParallelProfiles}
+  \vnudge
+\end{figure}
+
+
+{\noindent \em Objective term:}
+For each edge, $\edge_k$, let the corresponding set of \rawprofiles obtained by vertically slicing the input mesh be $\mathcal{R}(\edge_k)$.
+%
+Let the vector $\mathbf{F}_k$ list the error in fitting each \cleanprofile, $p_c \in \mathcal{C}$, to all the \rawprofiles, $q \in \mathcal{R}(\edge_k)$, along the edge, $\edge_k$. This error is measured by the function $d()$, which measures the difference between two profiles (see Section~\ref{sec:profiles} for details). 
+% 
+Specifically, each element of the vector, $F^c_k$, is computed for a single \cleanprofile, $p_c \in \mathcal{C}$, over all the edge's \rawprofiles as
+% 
+$$
+F^c_k = \sum_{q \in \mathcal{R}(\edge_k)}{ d(p_c, q, {\min}_{\te{Y}}(q), {\max}_{\te{Y}}(q))}.
+$$
+Note that for the above computation, $p_c$ is moved to align with $q$ at height $y=0$ (i.e., on the \sweepedge). Further, the function $d()$ is evaluated over the \rawprofile's height, $[{\min}_{\te{Y}}(q),{\max}_{\te{Y}}(q)]$, to match \rawprofiles with ends at varying heights to the more complete \cleanprofile.
+%
+If there is no \rawprofile associated with an edge, we set the assignment cost vector, $\mathbf{F}_k$ to $[-1,0,\dots0]$, i.e., we give a small bonus to selecting the vertical \cleanprofile. (Note that the -1 favors the default vertical profile in the absence other information.) 
+%
+%
+We can now define an objective term for each edge, $\edge_k$, measuring the fit of the selected \cleanprofile to the supporting edge's \rawprofiles,
+$$ O_3 ( \{ \mathbold{\eta}^k \} ) :=  \sum_{\edge_k \in \mathbb{G}}   \|\edge_k\| \mathbf{F}_k \cdot   \mathbold{\eta}^k.$$ 
+%
+%
+We recall that each internal \sweepedge potentially has two sets (for a shared wall) of \rawprofiles associated with it, corresponding to the two adjacent buildings. The above cost is adapted accordingly when a pair of edges is present. 
+
+
+
+
+\subsubsection{Retargeting \buildingfacades} 
+%
+\StreetI of \facades contains valuable information about building placement. For example, neighboring buildings may have different materials which provides evidence about their widths, or a change in \facade height may advocate splitting a \footprintpolygon. However, \streetI often does not align with the 3D mesh (or even other images) --- both in position and scale. We extend our formulation to include such \streetI by observing that solving for alignment and scaling is equivalent to establishing correspondence between the start and end \buildingfacadepoints, and the vertices on the boundary of the tessellation. 
+
+\neu{Specifically, let the set of vertices on the outer boundary of $\mathbb{G}$ be $\mathbb{V}$. We aim to assign every \buildingfacadepoint to a vertex, $v \in \mathbb{V}$.} Because the error in the \buildingfacade location is of a known maximum distance (approximately 3m in our datasets), we can enumerate the nearby boundary vertices for each \buildingfacadepoint. In the process, we aim to minimize both the \buildingfacadepoint displacement and the height disparity between the \buildingfacade-based (\streetI), and mesh-based, estimates. We note that multiple images may create overlapping \buildingfacades, with each suggesting a corresponding set of \facade elements.
+
+{\noindent \em Selection variable:} 
+We cluster nearby \buildingfacadepoints to a group, $\cluster_i$, with a cluster-representative denoted by $m^i_\star$. 
+For each cluster-representative, we find the nearby boundary vertices in $\mathbb{V}$, denoted as $\te{nearby}(m^i_\star)$. We use a selection variable, ${\tau^{(i,w)}}$, to identify the points in $\cluster_i$ mapped to vertex $v_w$. 
+
+
+{\noindent \em Objective terms:} %
+We introduce three terms: 
+($O_4$)~to discourage stretch and height disparities between heights extracted from the mesh and those from the \streetI; 
+($O_5$)~to encourage \buildingfacadepoints to pick exterior corners of the tessellation; and 
+($O_6$)~to reduce splitting of \footprintpolygons under a \buildingfacade. 
+
+First, to minimize stretch and height disparity of the \buildingfacades (see Figure~\ref{fig:mfpoint}), we add
+% 
+\begin{multline*}
+O_4 ( \{ \tau^{(i,w)} \} ) :=\\
+\sum_{\forall \cluster_i} 
+\sum_{m_a \in \cluster_i} 
+\sum_{w \in \te{nearby}(m^i_\star) }
+\tau^{(i,w)} ( \distance{}{}(v_w, m_a) +\\
+| \htLeft{}( m_a ) - \htLeft{} ( v_w ) | +\\
+| \htRight{}( m_a ) - \htRight{} ( v_w )| ),
+\end{multline*}
+% 
+where the function $\distance{}()$ gives the distance between a boundary vertex and \buildingfacadepoint, and $\htLeft{}()$ gives the \buildingfacade height or face height  (from the \streetI or the 3D mesh, respectively), on the left (similarly for $\htRight{}()$), as shown in Figure~\ref{fig:mfpoint}. 
+% 
+
+
+\begin{figure}[t]
+    \centering
+  \def\svgwidth{\columnwidth}  
+    \input{../images/megafacades/mfpoint.pdf_tex}
+    \caption{{\it Stretch and height disparity.} Left: We evaluate the fit of the \buildingfacade(blue) to the 3D mesh (grey) using stretch and height disparity. Right: The \buildingfacadepoints, $m_1, m_2, m_3$, are grouped into a cluster, \neu{$\mathbb{C}_i$}, with representative $m^i_\star$. The indicator variable $\gamma^{(i,1)}$ (or $\gamma^{(i,2)}$) denotes which of the points in cluster \neu{$\mathbb{C}_i$} are mapped to the boundary vertex, $v_1$ (or $v_2$).}
+  \label{fig:mfpoint}
+\end{figure}
+
+
+
+It is particularly desirable to assign a \buildingfacadepoint to a corner vertex of the tessellation boundary (a subset of $\mathbb{V}$); thus, it receives a reward
+$$
+O_5 ( \{ \tau^{(i,w)} \} ) := -  \sum_{v_w \in \te{corners}} \tau^{(i,w)},
+$$ 
+%
+where the set $\te{corner}$ contains all vertices adjacent to two boundary edges of $\mathbb{G}$ that meet at $[\pi/3,2\pi/3]$.  
+
+%
+
+
+%
+\pagebreak
+
+\begin{wrapfigure}[12]{r}{0.25\columnwidth}
+%\vspace*{-.1in}
+\hspace*{-.2in}
+  \def\svgwidth{0.26\columnwidth}  
+    \input{../images/megafacades/edgenomini.pdf_tex}
+\end{wrapfigure}
+Finally, it is undesirable for an edge to be selected that arrives at the tessellation boundary underneath a \buildingfacade (inset: top, blue).
+Such an edge may unnecessarily split a \footprintpolygon (pink). Hence, we penalize the selection of edges, $\edge_k$, that approach vertices of the boundary with \buildingfacades, but without selecting  \buildingfacadepoints. This results in improved integration of the \facade boundaries into the mass model~(inset, bottom). 
+%
+Specifically, we penalize such a situation as %where an edge is selected and covered by a \buildingfacade without being assigned a \buildingfacadepoint, as
+% 
+$$
+O_6 ( \{ l^k \}) :=  \sum_{\edge_k \in \mathbb{G}} \isEdge{}^k \land \edgeNoFacade{}^k.
+$$
+% 
+
+{\noindent \em Constraints:} %
+%
+The auxiliary binary variable, $\edgeNoFacade{}^k$, captures whether a vertex of edge, $\edge_k$, is not assigned a \buildingfacadepoint, but is covered by a \buildingfacade,
+%
+\begin{eqnarray*}
+  \edgeNoFacade{}^k &=& \sum_{v_w \in \te{verts}(e_k)} \left(\te{free}(v_w) \sum_{\forall \cluster_i  } \tau^{(i,w)}\right) < 1.
+\end{eqnarray*}
+%
+  The above constraint evaluates whether an edge, $e_k$, has a boundary vertex, $v_w \in \te{verts}(e_k)$, which is covered by a \buildingfacade, but is not assigned a \buildingfacadepoint by any $\tau$. The function $\te{free}(v_w)$ returns 0 if the vertex, $v_w$, is covered by some \buildingfacade and 1 otherwise.
+
+\subsubsection{Objective function} We find a solution that satisfies all the above constraints, while minimizing
+$$
+\min \sum_{i=1}^{6} \alpha_i {O_i}
+$$ 
+over the variables $\{ \mathbold{\gamma}^i \}$, $\{\mathbold{\eta}^k\}$, $\{\mathbold{\tau}^{(i,k)}\}$, and the associated auxiliary variables.
+% 
+In our results, we used $\alpha_1=10$, $\alpha_2=1$, $\alpha_3=0.01$, $\alpha_4=1$, and 
+$\alpha_5 = \alpha_6 =  0.1 \sum_{\edge_k \in \mathbb{G}} \|\edge_k\|$.
+
+
+\subsection{Creating the Structured Model}
+\label{sec:post}
+
+Given a \emph{solution} to the above optimization, we can generate the geometry for the final \outputM. 
+
+
+
+
+
+Starting from the \groundplane tessellation, $\mathbb{G}$, and the region coloring $\{\mathbold{\gamma}^i\}$, we merge neighboring faces to which the solution assigns the same color. The resulting 2D polygons form the \footprintpolygons of the final mass models.
+%
+For every edge in each \footprintpolygon, the solution contains a \cleanprofile from the set $\mathcal{C}$, in  $\{\mathbold{\eta}^k\}$. Procedural extrusions~\cite{kelly2011interactive} lift each \footprintpolygon using the selected \cleanprofiles to create a building's mass model. 
+\neu{During this extrusion, we cap the PE mesh at the average mesh height (sampled by $\height{}(x,z)$ over the \footprintpolygon) to stop runaway geometry and to create flat roofs.
+  An exception is when the PE horizontal cross-section area is decreasing rapidly at this height, in which case we assume that the roof is pointed.
+We cap pointed roofs at a higher level given by the average \rawprofile height around the \footprintpolygon boundary.}
+We classify the surfaces obtained via PE as walls or roofs using the local normals.
+
+The optimization solution assigns the \buildingfacades to portions of the mass-model. This correspondence between \buildingfacadepoints and vertices of the \footprintpolygons is given by $\{\mathbold{\tau}\}$; from this, we can position the \buildingfacades over the mass models.
+
+The \buildingfacade's points are found from image features. One, or both, points may be missing because they lie outside the image. If both points are present, we translate and scale the \buildingfacade to align its \buildingfacadepoints with the corresponding footprint vertices. If only one point is present, we simply translate it to align with the found vertex. In the case of no points, the \buildingfacade is aligned using estimated \GSV pose data.
+
+\neu{In this manner, multiple \buildingfacades can be positioned over the same section of the mass model, giving us multiple position estimates for \facade elements (doors, windows, balconies etc., see Figure~\ref{fig:overlapping_features}). Further, because these elements have been estimated from \streetI, they contain noise and omissions. }
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{../images/overlapping_features/overlapping_features.png}
+    \caption{{\it Overlapping building-\facade\ elements.} An urban block is typically covered by multiple overlapping \facade images, giving repeated bounding rectangles for many elements, such as \neu{windows (turquoise), shops (pink), balconies (orange), doors (green), mouldings (dark blue), and \buildingfacade boundaries (light blue)}.
+    The left-most visible facade of Figure.~\ref{fig:teaser} was reconstructed from these overlapping elements.}
+    \label{fig:overlapping_features}
+\end{figure}
+
+
+In the following,
+we explain our fusion and regularization process for window elements, while other element classes (doors and balconies, etc.) are treated similarly.
+We adopt a simple mean-shift~\cite{mean-shift} approach;
+\neu{at each iteration, we apply a step of $0.2 \times$ the mean-shift vector to all window rectangles for a variety of parameterizations. Namely: (i) absolute position of the left, right, top, and bottom of the rectangle (to align windows with themselves and others in a grid); (ii) width and height (to maintain the shape of the windows in subsequent iterations); and (iii) spacing between adjacent windows to the left, right, top and bottom (to encourage uniform spacing between windows).}
+%
+After the mean-shift has converged (we use 30 iterations), we frequently have multiple rectangles associated with each window. Such rectangles are merged if the overlap is more than 50\%; otherwise, the smallest rectangles are discarded. Element rectangles are also discarded if they occur in less than half of the \streetimages that cover them. 
+%
+
+
+These element rectangles are added to the mass model using simple \emph{parametric models} for each type of element, such as windows, doors, window-sills, cornices, moldings, and balconies.
+These are parameterized to the found dimensions, and windows or doors are recessed into the mass model \facade. As an exception, windows that lie on a mass model surface that is classified as a roof, or between surfaces with different normals, are added as dormer windows.
+
+
+
+Finally, we color the mass model polygons classified as \emph{wall} using the information extracted from the \streetI, \neu{and those classified as \emph{roof} using optional satellite image information}.
+%
+Figure~\ref{fig:teaser} shows such a resulting \outputM. 
+

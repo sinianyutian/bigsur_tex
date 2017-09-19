@@ -1,0 +1,303 @@
+\documentclass[acmtog]{acmart}
+
+\acmSubmissionID{0107}
+
+% TOG prefers author-name bib system with square brackets
+\citestyle{acmauthoryear}
+\setcitestyle{square}
+
+%\documentclass[review]{acmsiggraph}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{fixmath}
+\usepackage[inline]{enumitem}
+\usepackage{acronym}
+\usepackage{xspace}
+\usepackage{wrapfig}
+\usepackage{import}
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+
+%% This causes each citation to link back to the place where it was cited. 
+% \usepackage[hyperref]{backref}
+%\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
+%%% Title of your article or abstract.
+
+%\title{Wide Area Urban Data Fusion}
+%\title{Inverse Urban Modeling using Large-scale Data Fusion}
+%\title{Structured Urban Reconstruction}
+\title{BigSUR: Large-scale Structured Urban Reconstruction}
+
+\keywords{urban modeling, structure, reconstruction, \facade parsing and element classification, procedural modeling}
+
+\author{Tom Kelly}
+\affiliation{%
+ \institution{University College London}
+ \country{UK}
+ }
+ \author{John Femiani}
+ \affiliation{
+ \institution{Miami University}
+ \country{USA}
+ }
+ \author{Peter Wonka}
+ \affiliation{
+ \institution{KAUST}
+ \country{KSA}
+ }
+ \author{Niloy J. Mitra}
+ \affiliation{
+ \institution{University College London}
+ \country{UK}
+ }
+
+%%% Used by the ``review'' variation; the online ID will be printed on 
+%%% every page of the content.
+
+
+% User-generated keywords.
+
+
+
+%%% The next five lines define the rights management block on the first page.
+%%% Replace them with the LaTeX commands provided when the form has been completed.
+
+\definecolor{darkgreen}{RGB}{0, 64, 0}
+
+\newcommand{\neu}[1]{{#1}}
+\renewcommand{\sout}[1]{}
+
+\newcommand{\te}[1]{\text{\emph{#1}}}
+\newcommand{\facade}{fa\c{c}ade\xspace}
+\newcommand{\Facade}{Fa\c{c}ade\xspace}
+\newcommand{\facades}{fa\c{c}ades\xspace}
+\newcommand{\mypara}[1]{\noindent {\bf #1.}}
+
+%variables for optimisation
+\newcommand{\isEdge}{s}    %{\te{d}}
+\newcommand{\isDifferent}[1]{\ensuremath{\text{\textsc{isDifferent}}(#1)}}
+\newcommand{\hasProfileEdge}[1]{\ensuremath{\te{isSweepEdge}(#1)}}
+\newcommand{\clusterArea}{\textsc{meshClusterThreshold}}    %{\te{d}}
+
+\newcommand{\edgeNotProfile}{\te{g}}
+\newcommand{\profileNotEdge}{\te{u}}
+\newcommand{\edgeNoFacade}{\te{l}}
+\newcommand{\isFacade}{\te{q}}
+\newcommand{\differentProfiles}{\te{r}}
+\newcommand{\height}{\te{h}}
+\newcommand{\outputM}{structured model}
+\newcommand{\outputMs}{structured models\xspace}
+\newcommand{\edge}{\ensuremath{\mathbf{e}}}
+\newcommand{\htLeft}{\te{htLeft}}
+\newcommand{\htRight}{\te{htRight}}
+\newcommand{\distance}{\te{distance}}
+\newcommand{\cluster}{\mathbb{C}}
+
+
+% terminology
+
+\acrodef{GSV}{Google Street\-View}
+\acrodef{CNN}{Convolutional Neural Network}
+\acrodef{GIS}{Geospatial Information System}
+\acrodef{IoU}{Intersection over Union}
+\acrodef{VR}{Virtual Reality}
+
+\newcommand{\GSV}{\ac{GSV}\xspace}
+\newcommand{\GSVs}{\acp{GSV}\xspace}
+\newcommand{\GIS}{GIS\xspace}
+
+\newcommand{\streetI}{street-level imagery\xspace}
+\newcommand{\StreetI}{Street-level imagery\xspace}
+\newcommand{\streetimage}{street-level image\xspace}
+\newcommand{\streetimages}{street-level images\xspace}
+
+\newcommand{\GISd}{GIS footprint\xspace}
+\newcommand{\GISds}{GIS footprints\xspace}
+
+\newcommand\figref{Figure~\ref}
+
+\newcommand{\vnudge}{\vspace*{-.05in}}
+
+\newcommand{\sweepedge}{sweep-edge\xspace}
+\newcommand{\sweepedges}{sweep-edges\xspace}
+\newcommand{\Sweepedges}{Sweep-edges\xspace}
+
+\newcommand{\cleanprofiles}{clean-profiles\xspace}
+\newcommand{\cleanprofile}{clean-profile\xspace}
+
+\newcommand{\rawprofiles}{raw-profiles\xspace}
+\newcommand{\rawprofile}{raw-profile\xspace}
+
+\newcommand{\buildingfacades}{building-fa\c{c}ades\xspace}
+\newcommand{\buildingfacade}{building-fa\c{c}ade\xspace}
+
+\newcommand{\horizontalline}{horizontal-line\xspace}
+\newcommand{\horizontallines}{horizontal-lines\xspace}
+
+\newcommand{\block}{building-block\xspace}
+\newcommand{\blocks}{building-blocks\xspace}
+
+\newcommand{\prominentface}{prominent-face\xspace}
+\newcommand{\prominentfaces}{prominent-faces\xspace}
+
+\newcommand{\seedline}{seed-line\xspace}
+\newcommand{\seedlines}{seed-lines\xspace}
+
+\newcommand{\buildingfacadepoints}{building-fa\c{c}ade-points\xspace}
+\newcommand{\buildingfacadepoint}{building-fa\c{c}ade-point\xspace}
+
+\newcommand{\footprintpolygon}{footprint-polygon\xspace} % or plan polygon? to match plan-edge
+\newcommand{\footprintpolygons}{footprint-polygons\xspace}
+\newcommand{\Footprintpolygons}{Footprint-Polygons\xspace}
+
+\newcommand{\planedge}{plan-edge\xspace}
+\newcommand{\planedges}{plan-edges\xspace}
+
+\newcommand{\groundplane}{ground plane\xspace}
+
+ 
+\newcommand{\softedge}{soft-edge\xspace}
+\newcommand{\softedges}{soft-edges\xspace}
+
+\newcommand{\face}{face\xspace} % or regions? polygons?
+\newcommand{\faces}{faces\xspace}
+
+\newcommand{\lidar}{LiDAR\xspace}
+
+\newcommand{\LondonRS}{Little Portland Street}
+\newcommand{\LondonOC}{Oxford Circus}
+
+\renewcommand{\sout}[1]{}
+
+% used vars
+%ax
+%b
+%cx
+%dx
+%ex
+%fx
+%gx G
+%hx
+%ix
+%jx
+%kx
+%l
+%mx
+%nx
+%ox
+%px
+%q
+%rx
+%sx
+%tx
+%u
+%vx V
+%wx
+%xx
+%yx
+%zx
+
+
+%%% Start of the document.
+
+\begin{document}
+
+\setcopyright{acmlicensed}
+\acmJournal{TOG}
+\acmYear{2017}\acmVolume{36}\acmNumber{6}\acmArticle{204}\acmMonth{11} \acmDOI{10.1145/3130800.3130823}
+
+\graphicspath{{../images/megafacades/}}
+%%% This is the ``teaser'' command, which puts an figure, centered, below 
+%%% the title and author information, and above the body of the content.
+
+ 
+ \begin{teaserfigure}
+ \centering
+   \hspace*{-.02\textwidth}  
+   \def\svgwidth{1.02\textwidth}  
+    \input{../images/megafacades/teaser.pdf_tex}
+   \caption{{\it Structured Urban Reconstruction.} 
+    Given \streetI, \GISds, and a coarse 3D mesh (left), we formulate a global optimization to automatically fuse these noisy, incomplete, and conflicting data sources to create 
+   building footprints (middle: colored horizontal polygons) with profiles (vertical ribbons shown for several footprints) and attached building \facades  ~(vertical rectangles). The output encodes a structured  urban model~(right) including the walls, roof, and associated building elements (e.g., windows, balconies, roof, wall color, etc.). 
+   Inset below: A reference aerial image. 
+   }
+   \label{fig:teaser}
+\end{teaserfigure}
+
+
+\input{abstract.tex}
+
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below. 
+%
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010147.10010178.10010224.10010225.10010227</concept_id>
+<concept_desc>Computing methodologies~Scene understanding</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010371.10010396.10010402</concept_id>
+<concept_desc>Computing methodologies~Shape analysis</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010371.10010396.10010397</concept_id>
+<concept_desc>Computing methodologies~Mesh models</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10010405.10010469.10010472</concept_id>
+<concept_desc>Applied computing~Architecture (buildings)</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Scene understanding}
+\ccsdesc[300]{Computing methodologies~Shape analysis}
+\ccsdesc[300]{Computing methodologies~Mesh models}
+\ccsdesc[500]{Applied computing~Architecture (buildings)}
+
+
+%
+% End generated code
+%
+
+% The next three commands are required, and insert the user-generated keywords, 
+% The CCS concepts list, and the rights management text.
+% Please make sure there is a blank line between each of these three commands.
+
+\maketitle
+
+%\keywordlist
+
+%\conceptlist
+
+\input{introduction}
+\input{related}
+\input{setup}
+\input{optimisation}
+\input{processing}
+\input{results}
+\input{discussion}
+\input{appendix.tex}
+
+%\section*{Acknowledgements}
+%A company whose name rhymes with ``poodle'', for all the data.
+
+
+%\bibliographystyle{acmsiggraph}
+\bibliographystyle{ACM-Reference-Format}
+%\nocite{*}
+\bibliography{paper}
+\end{document}

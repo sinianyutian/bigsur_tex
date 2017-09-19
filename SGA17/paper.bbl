@@ -1,0 +1,783 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{00}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Affara, Nan, Ghanem, and Wonka}{Affara
+  et~al\mbox{.}}{2016}]%
+        {affara2016large}
+\bibfield{author}{\bibinfo{person}{Lama Affara}, \bibinfo{person}{Liangliang
+  Nan}, \bibinfo{person}{Bernard Ghanem}, {and} \bibinfo{person}{Peter Wonka}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Large Scale Asset Extraction for Urban Images}.
+\newblock \bibinfo{journal}{{\em {ECCV}\/}} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{437--452}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Aichholzer, Aurenhammer, Alberts, and
+  G{\"a}rtner}{Aichholzer et~al\mbox{.}}{1996}]%
+        {aichholzer1996novel}
+\bibfield{author}{\bibinfo{person}{Oswin Aichholzer}, \bibinfo{person}{Franz
+  Aurenhammer}, \bibinfo{person}{David Alberts}, {and} \bibinfo{person}{Bernd
+  G{\"a}rtner}.} \bibinfo{year}{1996}\natexlab{}.
+\newblock \showarticletitle{A novel type of skeleton for polygons}.
+\newblock In \bibinfo{booktitle}{{\em The Journal of Universal Computer
+  Science}}. \bibinfo{publisher}{Springer}, \bibinfo{pages}{752--761}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Anguelov, Dulong, Filip, Frueh, Lafon, Lyon,
+  Ogale, Vincent, and Weaver}{Anguelov et~al\mbox{.}}{2010}]%
+        {anguelov2010google}
+\bibfield{author}{\bibinfo{person}{Dragomir Anguelov}, \bibinfo{person}{Carole
+  Dulong}, \bibinfo{person}{Daniel Filip}, \bibinfo{person}{Christian Frueh},
+  \bibinfo{person}{St{\'e}phane Lafon}, \bibinfo{person}{Richard Lyon},
+  \bibinfo{person}{Abhijit Ogale}, \bibinfo{person}{Luc Vincent}, {and}
+  \bibinfo{person}{Josh Weaver}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Google street view: Capturing the world at street
+  level}.
+\newblock \bibinfo{journal}{{\em Computer\/}} \bibinfo{volume}{43},
+  \bibinfo{number}{6} (\bibinfo{year}{2010}), \bibinfo{pages}{32--38}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Badrinarayanan, Kendall, and
+  Cipolla}{Badrinarayanan et~al\mbox{.}}{2017}]%
+        {badrinarayanan2017segnet}
+\bibfield{author}{\bibinfo{person}{Vijay Badrinarayanan}, \bibinfo{person}{Alex
+  Kendall}, {and} \bibinfo{person}{Roberto Cipolla}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{SegNet: A Deep Convolutional Encoder-Decoder
+  Architecture for Image Segmentation}.
+\newblock \bibinfo{journal}{{\em {IEEE TPAMI}\/}} (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Biedl, Huber, and Palfrader}{Biedl
+  et~al\mbox{.}}{2016}]%
+        {biedl2016planar}
+\bibfield{author}{\bibinfo{person}{Therese Biedl}, \bibinfo{person}{Stefan
+  Huber}, {and} \bibinfo{person}{Peter Palfrader}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Planar matchings for weighted straight skeletons}.
+\newblock \bibinfo{journal}{{\em International Journal of Computational
+  Geometry \& Applications\/}} \bibinfo{volume}{26}, \bibinfo{number}{03n04}
+  (\bibinfo{year}{2016}), \bibinfo{pages}{211--229}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Brenner}{Brenner}{2005}]%
+        {brenner2005building}
+\bibfield{author}{\bibinfo{person}{Claus Brenner}.}
+  \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Building reconstruction from images and laser
+  scanning}.
+\newblock \bibinfo{journal}{{\em International Journal of Applied Earth
+  Observation and Geoinformation\/}} \bibinfo{volume}{6}, \bibinfo{number}{3}
+  (\bibinfo{year}{2005}), \bibinfo{pages}{187--198}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Brostow, Shotton, Fauqueur, and
+  Cipolla}{Brostow et~al\mbox{.}}{2008}]%
+        {BrostowSFC:ECCV08}
+\bibfield{author}{\bibinfo{person}{Gabriel~J. Brostow}, \bibinfo{person}{Jamie
+  Shotton}, \bibinfo{person}{Julien Fauqueur}, {and} \bibinfo{person}{Roberto
+  Cipolla}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Segmentation and Recognition Using Structure from
+  Motion Point Clouds}.
+\newblock \bibinfo{journal}{{\em {ECCV}\/}} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{44--57}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ceylan, Dang, J.~Mitra, Neubert, and
+  Pauly}{Ceylan et~al\mbox{.}}{2016}]%
+        {duygu:16:cgf}
+\bibfield{author}{\bibinfo{person}{Duygu Ceylan}, \bibinfo{person}{Minh Dang},
+  \bibinfo{person}{Niloy J.~Mitra}, \bibinfo{person}{Boris Neubert}, {and}
+  \bibinfo{person}{Mark Pauly}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Discovering Structured Variations Via Template
+  Matching}.
+\newblock \bibinfo{journal}{{\em {CGF}\/}} (\bibinfo{date}{01}
+  \bibinfo{year}{2016}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ceylan, Mitra, Zheng, and Pauly}{Ceylan
+  et~al\mbox{.}}{2013}]%
+        {cmzp_symmCalib_tog13}
+\bibfield{author}{\bibinfo{person}{Duygu Ceylan}, \bibinfo{person}{Niloy~J.
+  Mitra}, \bibinfo{person}{Youyi Zheng}, {and} \bibinfo{person}{Mark Pauly}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Coupled Structure-from-Motion and 3D Symmetry
+  Detection for Urban Facades}.
+\newblock \bibinfo{journal}{{\em {ACM TOG}\/}} (\bibinfo{year}{2013}), 15.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chinneck}{Chinneck}{2008}]%
+        {optBook08}
+\bibfield{author}{\bibinfo{person}{John~W. Chinneck}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \bibinfo{booktitle}{{\em Feasibility and Infeasibility in
+  Optimization: Algorithms and Computational Methods}}.
+\newblock \bibinfo{publisher}{Springer}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cohen, Schwing, and Pollefeys}{Cohen
+  et~al\mbox{.}}{2014}]%
+        {cohen2014efficient}
+\bibfield{author}{\bibinfo{person}{Andrea Cohen}, \bibinfo{person}{Alexander~G
+  Schwing}, {and} \bibinfo{person}{Marc Pollefeys}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Efficient structured parsing of facades using
+  dynamic programming}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2014}),
+  \bibinfo{pages}{3206--3213}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cordts, Omran, Ramos, Rehfeld, Enzweiler,
+  Benenson, Franke, Roth, and Schiele}{Cordts et~al\mbox{.}}{2016}]%
+        {Cordts2016Cityscapes}
+\bibfield{author}{\bibinfo{person}{Marius Cordts}, \bibinfo{person}{Mohamed
+  Omran}, \bibinfo{person}{Sebastian Ramos}, \bibinfo{person}{Timo Rehfeld},
+  \bibinfo{person}{Markus Enzweiler}, \bibinfo{person}{Rodrigo Benenson},
+  \bibinfo{person}{Uwe Franke}, \bibinfo{person}{Stefan Roth}, {and}
+  \bibinfo{person}{Bernt Schiele}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{The Cityscapes Dataset for Semantic Urban Scene
+  Understanding}. In \bibinfo{booktitle}{{\em {IEEE CVPR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dai, Prasad, Schmitt, and Van~Gool}{Dai
+  et~al\mbox{.}}{2012}]%
+        {dai2012learning}
+\bibfield{author}{\bibinfo{person}{Dengxin Dai}, \bibinfo{person}{Mukta
+  Prasad}, \bibinfo{person}{Gerhard Schmitt}, {and} \bibinfo{person}{Luc
+  Van~Gool}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Learning domain knowledge for facade labelling}.
+\newblock \bibinfo{journal}{{\em {ECCV}\/}} (\bibinfo{year}{2012}),
+  \bibinfo{pages}{710--723}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Debevec, Taylor, and Malik}{Debevec
+  et~al\mbox{.}}{1996}]%
+        {debevec1996modeling}
+\bibfield{author}{\bibinfo{person}{Paul~E Debevec}, \bibinfo{person}{Camillo~J
+  Taylor}, {and} \bibinfo{person}{Jitendra Malik}.}
+  \bibinfo{year}{1996}\natexlab{}.
+\newblock \showarticletitle{Modeling and rendering architecture from
+  photographs: A hybrid geometry-and image-based approach}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} (\bibinfo{year}{1996}),
+  \bibinfo{pages}{11--20}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dick, Torr, and Cipolla}{Dick
+  et~al\mbox{.}}{2004}]%
+        {dick2004modelling}
+\bibfield{author}{\bibinfo{person}{Anthony~R Dick}, \bibinfo{person}{Philip~HS
+  Torr}, {and} \bibinfo{person}{Roberto Cipolla}.}
+  \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Modelling and interpretation of architecture from
+  several images}.
+\newblock \bibinfo{journal}{{\em {IJCV}\/}} \bibinfo{volume}{60},
+  \bibinfo{number}{2} (\bibinfo{year}{2004}), \bibinfo{pages}{111--134}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Eigen and Fergus}{Eigen and Fergus}{2015}]%
+        {Eigen2015-aj}
+\bibfield{author}{\bibinfo{person}{David Eigen} {and} \bibinfo{person}{Rob
+  Fergus}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Predicting depth, surface normals and semantic
+  labels with a common multi-scale convolutional architecture}.
+\newblock \bibinfo{journal}{{\em {IEEE ICCV}\/}} (\bibinfo{year}{2015}),
+  \bibinfo{pages}{2650--2658}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Eppstein and Erickson}{Eppstein and
+  Erickson}{1999}]%
+        {eppstein1999raising}
+\bibfield{author}{\bibinfo{person}{David Eppstein} {and} \bibinfo{person}{Jeff
+  Erickson}.} \bibinfo{year}{1999}\natexlab{}.
+\newblock \showarticletitle{Raising roofs, crashing cycles, and playing pool:
+  Applications of a data structure for finding pairwise interactions}.
+\newblock \bibinfo{journal}{{\em Discrete \& Computational Geometry\/}}
+  \bibinfo{volume}{22}, \bibinfo{number}{4} (\bibinfo{year}{1999}),
+  \bibinfo{pages}{569--592}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Fang, Wang, Zhang, and Quan}{Fang
+  et~al\mbox{.}}{2013}]%
+        {fang2013image}
+\bibfield{author}{\bibinfo{person}{Tian Fang}, \bibinfo{person}{Zhexi Wang},
+  \bibinfo{person}{Honghui Zhang}, {and} \bibinfo{person}{Long Quan}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Image-based modeling of unwrappable facades}.
+\newblock \bibinfo{journal}{{\em {IEEE TVCG}\/}} \bibinfo{volume}{19},
+  \bibinfo{number}{10} (\bibinfo{year}{2013}), \bibinfo{pages}{1720--1731}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Fukunaga and Hostetler}{Fukunaga and
+  Hostetler}{1975}]%
+        {mean-shift}
+\bibfield{author}{\bibinfo{person}{K. Fukunaga} {and} \bibinfo{person}{L.
+  Hostetler}.} \bibinfo{year}{1975}\natexlab{}.
+\newblock \showarticletitle{The estimation of the gradient of a density
+  function, with applications in pattern recognition}.
+\newblock \bibinfo{journal}{{\em IEEE TIT\/}} \bibinfo{volume}{21},
+  \bibinfo{number}{1} (\bibinfo{date}{January} \bibinfo{year}{1975}),
+  \bibinfo{pages}{32--40}.
+\newblock
+\showISSN{0018-9448}
+
+
+\bibitem[\protect\citeauthoryear{Furukawa and Ponce}{Furukawa and
+  Ponce}{2010}]%
+        {furukawa2010accurate}
+\bibfield{author}{\bibinfo{person}{Yasutaka Furukawa} {and}
+  \bibinfo{person}{Jean Ponce}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Accurate, dense, and robust multiview stereopsis}.
+\newblock \bibinfo{journal}{{\em {IEEE PAMI}\/}} \bibinfo{volume}{32},
+  \bibinfo{number}{8} (\bibinfo{year}{2010}), \bibinfo{pages}{1362--1376}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Garcia-Dorado, Demir, and
+  Aliaga}{Garcia-Dorado et~al\mbox{.}}{2013}]%
+        {garcia2013automatic}
+\bibfield{author}{\bibinfo{person}{Ignacio Garcia-Dorado},
+  \bibinfo{person}{Ilke Demir}, {and} \bibinfo{person}{Daniel~G Aliaga}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Automatic urban modeling using volumetric
+  reconstruction with surface graph cuts}.
+\newblock \bibinfo{journal}{{\em {Computers \& Graphics}\/}}
+  \bibinfo{volume}{37}, \bibinfo{number}{7} (\bibinfo{year}{2013}),
+  \bibinfo{pages}{896--910}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Golovinskiy, Kim, and Funkhouser}{Golovinskiy
+  et~al\mbox{.}}{2009}]%
+        {golovinskiy2009shape}
+\bibfield{author}{\bibinfo{person}{Aleksey Golovinskiy},
+  \bibinfo{person}{Vladimir~G Kim}, {and} \bibinfo{person}{Thomas Funkhouser}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Shape-based recognition of 3D point clouds in urban
+  environments}.
+\newblock \bibinfo{journal}{{\em {IEEE ICCV}\/}} (\bibinfo{year}{2009}),
+  \bibinfo{pages}{2154--2161}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Gurobi}{Gurobi}{2016}]%
+        {gurobi}
+\bibfield{author}{\bibinfo{person}{Gurobi}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \bibinfo{title}{Gurobi Optimizer Reference Manual}.
+\newblock   (\bibinfo{year}{2016}).
+\newblock
+\showURL{%
+\url{http://www.gurobi.com}}
+
+
+\bibitem[\protect\citeauthoryear{Jia, Shelhamer, Donahue, Karayev, Long,
+  Girshick, Guadarrama, and Darrell}{Jia et~al\mbox{.}}{2014}]%
+        {jia2014caffe}
+\bibfield{author}{\bibinfo{person}{Yangqing Jia}, \bibinfo{person}{Evan
+  Shelhamer}, \bibinfo{person}{Jeff Donahue}, \bibinfo{person}{Sergey Karayev},
+  \bibinfo{person}{Jonathan Long}, \bibinfo{person}{Ross Girshick},
+  \bibinfo{person}{Sergio Guadarrama}, {and} \bibinfo{person}{Trevor Darrell}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Caffe: Convolutional Architecture for Fast Feature
+  Embedding}.
+\newblock \bibinfo{journal}{{\em arXiv preprint arXiv:1408.5093\/}}
+  (\bibinfo{year}{2014}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Jiang, Nan, Yan, Dong, Zhang, and Wonka}{Jiang
+  et~al\mbox{.}}{2016}]%
+        {jiang2016automatic}
+\bibfield{author}{\bibinfo{person}{Haiyong Jiang}, \bibinfo{person}{Liangliang
+  Nan}, \bibinfo{person}{Dong-Ming Yan}, \bibinfo{person}{Weiming Dong},
+  \bibinfo{person}{Xiaopeng Zhang}, {and} \bibinfo{person}{Peter Wonka}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Automatic constraint detection for 2D layout
+  regularization}.
+\newblock \bibinfo{journal}{{\em {IEEE TVCG}\/}} \bibinfo{volume}{22},
+  \bibinfo{number}{8} (\bibinfo{year}{2016}), \bibinfo{pages}{1933--1944}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kazhdan, Bolitho, and Hoppe}{Kazhdan
+  et~al\mbox{.}}{2006}]%
+        {Kazhdan2006}
+\bibfield{author}{\bibinfo{person}{Michael Kazhdan}, \bibinfo{person}{Matthew
+  Bolitho}, {and} \bibinfo{person}{Hugues Hoppe}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Poisson Surface Reconstruction}.
+\newblock \bibinfo{journal}{{\em {SGP}\/}} (\bibinfo{year}{2006}),
+  \bibinfo{pages}{61--70}.
+\newblock
+\showISBNx{3-905673-36-3}
+
+
+\bibitem[\protect\citeauthoryear{Kazhdan and Hoppe}{Kazhdan and Hoppe}{2013}]%
+        {kazhdan2013screened}
+\bibfield{author}{\bibinfo{person}{Michael Kazhdan} {and}
+  \bibinfo{person}{Hugues Hoppe}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Screened poisson surface reconstruction}.
+\newblock \bibinfo{journal}{{\em {ACM TOG}\/}} \bibinfo{volume}{32},
+  \bibinfo{number}{3} (\bibinfo{year}{2013}), \bibinfo{pages}{29}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kelly and Wonka}{Kelly and Wonka}{2011}]%
+        {kelly2011interactive}
+\bibfield{author}{\bibinfo{person}{Tom Kelly} {and} \bibinfo{person}{Peter
+  Wonka}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Interactive architectural modeling with procedural
+  extrusions}.
+\newblock \bibinfo{journal}{{\em {ACM TOG}\/}} \bibinfo{volume}{30},
+  \bibinfo{number}{2} (\bibinfo{year}{2011}), \bibinfo{pages}{14}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kendall, Badrinarayanan, , and
+  Cipolla}{Kendall et~al\mbox{.}}{2015}]%
+        {kendall2015bayesian}
+\bibfield{author}{\bibinfo{person}{Alex Kendall}, \bibinfo{person}{Vijay
+  Badrinarayanan}, \bibinfo{person}{}, {and} \bibinfo{person}{Roberto
+  Cipolla}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Bayesian SegNet: Model Uncertainty in Deep
+  Convolutional Encoder-Decoder Architectures for Scene Understanding}.
+\newblock \bibinfo{journal}{{\em arXiv preprint arXiv:1511.02680\/}}
+  (\bibinfo{year}{2015}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kozinski, Gadde, Zagoruyko, Obozinski, and
+  Marlet}{Kozinski et~al\mbox{.}}{2015}]%
+        {kozinski2015mrf}
+\bibfield{author}{\bibinfo{person}{Mateusz Kozinski},
+  \bibinfo{person}{Raghudeep Gadde}, \bibinfo{person}{Sergey Zagoruyko},
+  \bibinfo{person}{Guillaume Obozinski}, {and} \bibinfo{person}{Renaud
+  Marlet}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{A MRF shape prior for facade parsing with
+  occlusions}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2015}),
+  \bibinfo{pages}{2820--2828}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lafarge, Descombes, Zerubia, and
+  Pierrot-Deseilligny}{Lafarge et~al\mbox{.}}{2010}]%
+        {lafarge2010structural}
+\bibfield{author}{\bibinfo{person}{Florent Lafarge}, \bibinfo{person}{Xavier
+  Descombes}, \bibinfo{person}{Josiane Zerubia}, {and} \bibinfo{person}{Marc
+  Pierrot-Deseilligny}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Structural approach for building reconstruction
+  from a single DSM}.
+\newblock \bibinfo{journal}{{\em {IEEE TPAMI}\/}} \bibinfo{volume}{32},
+  \bibinfo{number}{1} (\bibinfo{year}{2010}), \bibinfo{pages}{135--147}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Laycock and Day}{Laycock and Day}{2003}]%
+        {laycock2003automatically}
+\bibfield{author}{\bibinfo{person}{Robert~G Laycock} {and} \bibinfo{person}{AM
+  Day}.} \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{Automatically generating large urban environments
+  based on the footprint data of buildings}.
+\newblock \bibinfo{journal}{{\em ACM SMA\/}} (\bibinfo{year}{2003}),
+  \bibinfo{pages}{346--351}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Li, Wonka, and Nan}{Li et~al\mbox{.}}{2016}]%
+        {li2016manhattan}
+\bibfield{author}{\bibinfo{person}{Minglei Li}, \bibinfo{person}{Peter Wonka},
+  {and} \bibinfo{person}{Liangliang Nan}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Manhattan-world urban reconstruction from point
+  clouds}.
+\newblock \bibinfo{journal}{{\em {ECCV}\/}} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{54--69}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Li, Wu, Chrysathou, Sharf, Cohen-Or, and
+  Mitra}{Li et~al\mbox{.}}{2011a}]%
+        {li2011globfit}
+\bibfield{author}{\bibinfo{person}{Yangyan Li}, \bibinfo{person}{Xiaokun Wu},
+  \bibinfo{person}{Yiorgos Chrysathou}, \bibinfo{person}{Andrei Sharf},
+  \bibinfo{person}{Daniel Cohen-Or}, {and} \bibinfo{person}{Niloy~J Mitra}.}
+  \bibinfo{year}{2011}\natexlab{a}.
+\newblock \showarticletitle{Globfit: Consistently fitting primitives by
+  discovering global relations}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{30},
+  \bibinfo{number}{4} (\bibinfo{year}{2011}), \bibinfo{pages}{52}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Li, Zheng, Sharf, Cohen-Or, Chen, and
+  Mitra}{Li et~al\mbox{.}}{2011b}]%
+        {li20112d}
+\bibfield{author}{\bibinfo{person}{Yangyan Li}, \bibinfo{person}{Qian Zheng},
+  \bibinfo{person}{Andrei Sharf}, \bibinfo{person}{Daniel Cohen-Or},
+  \bibinfo{person}{Baoquan Chen}, {and} \bibinfo{person}{Niloy~J Mitra}.}
+  \bibinfo{year}{2011}\natexlab{b}.
+\newblock \showarticletitle{2D-3D fusion for layer decomposition of urban
+  facades}.
+\newblock \bibinfo{journal}{{\em {IEEE ICCV}\/}} (\bibinfo{year}{2011}),
+  \bibinfo{pages}{882--889}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lin, Gao, Zhou, Lu, Ye, Zhang, Liu, and
+  Yang}{Lin et~al\mbox{.}}{2013}]%
+        {lin2013semantic}
+\bibfield{author}{\bibinfo{person}{Hui Lin}, \bibinfo{person}{Jizhou Gao},
+  \bibinfo{person}{Yu Zhou}, \bibinfo{person}{Guiliang Lu},
+  \bibinfo{person}{Mao Ye}, \bibinfo{person}{Chenxi Zhang},
+  \bibinfo{person}{Ligang Liu}, {and} \bibinfo{person}{Ruigang Yang}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Semantic decomposition and reconstruction of
+  residential scenes from LiDAR data}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{32},
+  \bibinfo{number}{4} (\bibinfo{year}{2013}), \bibinfo{pages}{66}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Martinovi{\'c}, Mathias, Weissenberg, and
+  Van~Gool}{Martinovi{\'c} et~al\mbox{.}}{2012}]%
+        {martinovic2012three}
+\bibfield{author}{\bibinfo{person}{An{\dj}elo Martinovi{\'c}},
+  \bibinfo{person}{Markus Mathias}, \bibinfo{person}{Julien Weissenberg}, {and}
+  \bibinfo{person}{Luc Van~Gool}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{A three-layered approach to facade parsing}.
+\newblock \bibinfo{journal}{{\em {ECCV}\/}} (\bibinfo{year}{2012}),
+  \bibinfo{pages}{416--429}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Matei, Sawhney, Samarasekera, Kim, and
+  Kumar}{Matei et~al\mbox{.}}{2008}]%
+        {matei2008building}
+\bibfield{author}{\bibinfo{person}{Bogdan~C Matei}, \bibinfo{person}{Harpreet~S
+  Sawhney}, \bibinfo{person}{Supun Samarasekera}, \bibinfo{person}{Janet Kim},
+  {and} \bibinfo{person}{Rakesh Kumar}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Building segmentation for densely built urban
+  regions using aerial lidar data}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{1--8}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Miller et~al\mbox{.}}{Miller
+  et~al\mbox{.}}{2017}]%
+        {osm}
+\bibfield{author}{\bibinfo{person}{Peter Miller} {et~al\mbox{.}}}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \bibinfo{title}{Buildings - {OpenStreetMap} Wiki}.
+\newblock   (\bibinfo{year}{2017}).
+\newblock
+\showURL{%
+Retrieved August 8, 2017 from
+  \url{http://wiki.openstreetmap.org/wiki/Buildings}}
+
+
+\bibitem[\protect\citeauthoryear{Monszpart, Mellado, Brostow, and
+  Mitra}{Monszpart et~al\mbox{.}}{2015}]%
+        {monszpart2015rapter}
+\bibfield{author}{\bibinfo{person}{Aron Monszpart}, \bibinfo{person}{Nicolas
+  Mellado}, \bibinfo{person}{Gabriel~J Brostow}, {and} \bibinfo{person}{Niloy~J
+  Mitra}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{RAPter: rebuilding man-made scenes with regular
+  arrangements of planes.}
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{34},
+  \bibinfo{number}{4} (\bibinfo{year}{2015}), \bibinfo{pages}{103--1}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{M{\"u}ller, Wonka, Haegler, Ulmer, and
+  Van~Gool}{M{\"u}ller et~al\mbox{.}}{2006}]%
+        {muller2006procedural}
+\bibfield{author}{\bibinfo{person}{Pascal M{\"u}ller}, \bibinfo{person}{Peter
+  Wonka}, \bibinfo{person}{Simon Haegler}, \bibinfo{person}{Andreas Ulmer},
+  {and} \bibinfo{person}{Luc Van~Gool}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Procedural modeling of buildings}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{25},
+  \bibinfo{number}{3} (\bibinfo{year}{2006}), \bibinfo{pages}{614--623}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{M{\"u}ller, Zeng, Wonka, and
+  Van~Gool}{M{\"u}ller et~al\mbox{.}}{2007}]%
+        {muller2007image}
+\bibfield{author}{\bibinfo{person}{Pascal M{\"u}ller}, \bibinfo{person}{Gang
+  Zeng}, \bibinfo{person}{Peter Wonka}, {and} \bibinfo{person}{Luc Van~Gool}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Image-based procedural modeling of facades}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{26},
+  \bibinfo{number}{3} (\bibinfo{year}{2007}), \bibinfo{pages}{85}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Musialski, Wonka, Aliaga, Wimmer, Gool, and
+  Purgathofer}{Musialski et~al\mbox{.}}{2013}]%
+        {musialski2013survey}
+\bibfield{author}{\bibinfo{person}{Przemyslaw Musialski},
+  \bibinfo{person}{Peter Wonka}, \bibinfo{person}{Daniel~G Aliaga},
+  \bibinfo{person}{Michael Wimmer}, \bibinfo{person}{L~v Gool}, {and}
+  \bibinfo{person}{Werner Purgathofer}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{A survey of urban reconstruction}.
+\newblock \bibinfo{journal}{{\em {CGF}\/}} \bibinfo{volume}{32},
+  \bibinfo{number}{6} (\bibinfo{year}{2013}), \bibinfo{pages}{146--177}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nan, Jiang, Ghanem, and Wonka}{Nan
+  et~al\mbox{.}}{2015}]%
+        {nan2015template}
+\bibfield{author}{\bibinfo{person}{Liangliang Nan}, \bibinfo{person}{Caigui
+  Jiang}, \bibinfo{person}{Bernard Ghanem}, {and} \bibinfo{person}{Peter
+  Wonka}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Template assembly for detailed urban
+  reconstruction}.
+\newblock \bibinfo{journal}{{\em {CGF Eurographics}\/}} \bibinfo{volume}{34},
+  \bibinfo{number}{2} (\bibinfo{year}{2015}), \bibinfo{pages}{217--228}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nan, Sharf, Zhang, Cohen-Or, and Chen}{Nan
+  et~al\mbox{.}}{2010}]%
+        {nan2010smartboxes}
+\bibfield{author}{\bibinfo{person}{Liangliang Nan}, \bibinfo{person}{Andrei
+  Sharf}, \bibinfo{person}{Hao Zhang}, \bibinfo{person}{Daniel Cohen-Or}, {and}
+  \bibinfo{person}{Baoquan Chen}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Smartboxes for interactive urban reconstruction}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{29},
+  \bibinfo{number}{4} (\bibinfo{year}{2010}), \bibinfo{pages}{93}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nishida, Garcia-Dorado, Aliaga, Benes, and
+  Bousseau}{Nishida et~al\mbox{.}}{2016}]%
+        {nishida2016interactive}
+\bibfield{author}{\bibinfo{person}{Gen Nishida}, \bibinfo{person}{Ignacio
+  Garcia-Dorado}, \bibinfo{person}{Daniel~G Aliaga}, \bibinfo{person}{Bedrich
+  Benes}, {and} \bibinfo{person}{Adrien Bousseau}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Interactive sketching of urban procedural models}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{35},
+  \bibinfo{number}{4} (\bibinfo{year}{2016}), \bibinfo{pages}{130}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Poullis and You}{Poullis and You}{2009}]%
+        {poullis2009automatic}
+\bibfield{author}{\bibinfo{person}{Charalambos Poullis} {and}
+  \bibinfo{person}{Suya You}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Automatic reconstruction of cities from remote
+  sensor data}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2009}),
+  \bibinfo{pages}{2775--2782}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Riemenschneider, Krispel, Thaller, Donoser,
+  Havemann, Fellner, and Bischof}{Riemenschneider et~al\mbox{.}}{2012}]%
+        {riemenschneider2012irregular}
+\bibfield{author}{\bibinfo{person}{Hayko Riemenschneider},
+  \bibinfo{person}{Ulrich Krispel}, \bibinfo{person}{Wolfgang Thaller},
+  \bibinfo{person}{Michael Donoser}, \bibinfo{person}{Sven Havemann},
+  \bibinfo{person}{Dieter Fellner}, {and} \bibinfo{person}{Horst Bischof}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Irregular lattices for complex shape grammar facade
+  parsing}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2012}),
+  \bibinfo{pages}{1640--1647}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Salinas, Lafarge, and Alliez}{Salinas
+  et~al\mbox{.}}{2015}]%
+        {salinas2015structure}
+\bibfield{author}{\bibinfo{person}{David Salinas}, \bibinfo{person}{Florent
+  Lafarge}, {and} \bibinfo{person}{Pierre Alliez}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Structure-Aware Mesh Decimation}.
+\newblock \bibinfo{journal}{{\em {CGF}\/}} \bibinfo{volume}{34},
+  \bibinfo{number}{6} (\bibinfo{year}{2015}), \bibinfo{pages}{211--227}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Shen, Huang, Fu, and Hu}{Shen
+  et~al\mbox{.}}{2011}]%
+        {shen2011adaptive}
+\bibfield{author}{\bibinfo{person}{Chao-Hui Shen}, \bibinfo{person}{Shi-Sheng
+  Huang}, \bibinfo{person}{Hongbo Fu}, {and} \bibinfo{person}{Shi-Min Hu}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Adaptive partitioning of urban facades}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH Asia}\/}} \bibinfo{volume}{30},
+  \bibinfo{number}{6} (\bibinfo{year}{2011}), \bibinfo{pages}{184}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Snavely, Seitz, and Szeliski}{Snavely
+  et~al\mbox{.}}{2006}]%
+        {snavely2006photo}
+\bibfield{author}{\bibinfo{person}{Noah Snavely}, \bibinfo{person}{Steven~M
+  Seitz}, {and} \bibinfo{person}{Richard Szeliski}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Photo tourism: exploring photo collections in 3D}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{25},
+  \bibinfo{number}{3} (\bibinfo{year}{2006}), \bibinfo{pages}{835--846}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Teboul, Kokkinos, Simon, Koutsourakis, and
+  Paragios}{Teboul et~al\mbox{.}}{2013}]%
+        {teboul2013parsing}
+\bibfield{author}{\bibinfo{person}{Olivier Teboul}, \bibinfo{person}{Iasonas
+  Kokkinos}, \bibinfo{person}{Loic Simon}, \bibinfo{person}{Panagiotis
+  Koutsourakis}, {and} \bibinfo{person}{Nikos Paragios}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Parsing facades with shape grammars and
+  reinforcement learning}.
+\newblock \bibinfo{journal}{{\em {IEEE TPAMI}\/}} \bibinfo{volume}{35},
+  \bibinfo{number}{7} (\bibinfo{year}{2013}), \bibinfo{pages}{1744--1756}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tylecek}{Tylecek}{2012}]%
+        {tylecek2012cmp}
+\bibfield{author}{\bibinfo{person}{Radim Tylecek}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \bibinfo{booktitle}{{\em The {CMP} facade database}}.
+\newblock \bibinfo{type}{{T}echnical {R}eport}. \bibinfo{institution}{Tech.
+  rep., CTU--CMP--2012--24, Czech Technical University}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Vanegas, Aliaga, and Bene{\v{s}}}{Vanegas
+  et~al\mbox{.}}{2010}]%
+        {vanegas2010building}
+\bibfield{author}{\bibinfo{person}{Carlos~A Vanegas}, \bibinfo{person}{Daniel~G
+  Aliaga}, {and} \bibinfo{person}{Bed{\v{r}}ich Bene{\v{s}}}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Building reconstruction using manhattan-world
+  grammars}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2010}),
+  \bibinfo{pages}{358--365}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Verdie, Lafarge, and Alliez}{Verdie
+  et~al\mbox{.}}{2015}]%
+        {verdie2015lod}
+\bibfield{author}{\bibinfo{person}{Yannick Verdie}, \bibinfo{person}{Florent
+  Lafarge}, {and} \bibinfo{person}{Pierre Alliez}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \bibinfo{booktitle}{{\em LOD generation for urban scenes}}.
+\newblock \bibinfo{type}{{T}echnical {R}eport}~3. \bibinfo{pages}{30:1--30:14}
+  pages.
+\newblock
+\showISSN{0730-0301}
+\showDOI{%
+\url{https://doi.org/10.1145/2732527}}
+
+
+\bibitem[\protect\citeauthoryear{Xiao, Fang, Tan, Zhao, Ofek, and Quan}{Xiao
+  et~al\mbox{.}}{2008}]%
+        {xiao2008image}
+\bibfield{author}{\bibinfo{person}{Jianxiong Xiao}, \bibinfo{person}{Tian
+  Fang}, \bibinfo{person}{Ping Tan}, \bibinfo{person}{Peng Zhao},
+  \bibinfo{person}{Eyal Ofek}, {and} \bibinfo{person}{Long Quan}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Image-based fa{\c{c}}ade modeling}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH Asia}\/}} \bibinfo{volume}{27},
+  \bibinfo{number}{5} (\bibinfo{year}{2008}), \bibinfo{pages}{161}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Yang, Han, Quan, and Tai}{Yang
+  et~al\mbox{.}}{2012}]%
+        {yang2012parsing}
+\bibfield{author}{\bibinfo{person}{Chao Yang}, \bibinfo{person}{Tian Han},
+  \bibinfo{person}{Long Quan}, {and} \bibinfo{person}{Chiew-Lan Tai}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Parsing fa{\c{c}}ade with rank-one approximation}.
+\newblock \bibinfo{journal}{{\em {IEEE CVPR}\/}} (\bibinfo{year}{2012}),
+  \bibinfo{pages}{1720--1727}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zheng, Sharf, Wan, Li, Mitra, Cohen-Or, and
+  Chen}{Zheng et~al\mbox{.}}{2010}]%
+        {zheng2010non}
+\bibfield{author}{\bibinfo{person}{Qian Zheng}, \bibinfo{person}{Andrei Sharf},
+  \bibinfo{person}{Guowei Wan}, \bibinfo{person}{Yangyan Li},
+  \bibinfo{person}{Niloy~J Mitra}, \bibinfo{person}{Daniel Cohen-Or}, {and}
+  \bibinfo{person}{Baoquan Chen}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Non-local scan consolidation for 3D urban scenes}.
+\newblock \bibinfo{journal}{{\em {ACM SIGGRAPH}\/}} \bibinfo{volume}{29},
+  \bibinfo{number}{4} (\bibinfo{year}{2010}), \bibinfo{pages}{94}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhou and Neumann}{Zhou and Neumann}{2010}]%
+        {zhou20102}
+\bibfield{author}{\bibinfo{person}{Qian-Yi Zhou} {and} \bibinfo{person}{Ulrich
+  Neumann}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{2.5D dual contouring: a robust approach to creating
+  building models from aerial lidar point clouds}.
+\newblock \bibinfo{journal}{{\em {ECCV}\/}} (\bibinfo{year}{2010}),
+  \bibinfo{pages}{115--128}.
+\newblock
+
+
+\end{thebibliography}

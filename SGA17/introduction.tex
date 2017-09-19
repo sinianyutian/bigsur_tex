@@ -1,0 +1,53 @@
+\section{Introduction}
+\label{sec:intro}
+
+
+%para 1: importance of urban modeling; lots of scanning, but lack of proc. modeling
+Obtaining detailed 3D urban models is important for a variety of applications ranging from urban planning and environmental simulations to virtual reality and video game creation. Given the
+\begin{wrapfigure}[12]{r}{0.5\columnwidth}
+\vspace*{-3ex} % 2ex is about the height of a line (twice the height of a lowercase x)
+\hspace*{-0.06\columnwidth}  % figwidth - hspace = image width
+  \includegraphics[width=0.56\columnwidth]{../images/teaser/inset.png}
+\end{wrapfigure}
+importance of such models, extensive efforts have been undertaken to create polygonal meshes from aerial images or light detection and ranging (\lidar) scans. Such  datasets are often very  expensive  and tedious to create.
+They are difficult to use because they are typically heterogeneous with sparse or missing details. More importantly, they lack semantic structure, which prevents easy use in subsequent applications. 
+
+%para 2: proc modeling is attractive. one of the most natural choices is procedural extrusion (PE) as this is naturally how buildings are created --- blocks split into parcels + profiles attached to parcel boundaries
+\begin{figure*}[t!]
+    \centering
+  \def\svgwidth{\linewidth}  
+    \input{../images/megafacades/comparision.pdf_tex}
+  \caption{{\it Baseline methods.} (a)~\GISds\ represent plot ownership more accurately than building structure. (b)~Image features, such as windows (cuboids) extracted from \streetI, are available only near where the images have been taken (cubes), and lack information about the interior of the structure; different images may give contradictory features for the same building. (c)~Raw polygonal meshes tend to be more complete, but they contain noise and are typically polygon soups. One reconstruction possibility is to fit horizontal ``floors'' to the mesh~(d), while another is to extrude the GIS footprints to heights available from a database~(e). Both these approaches fail to convey the roof structures of the input. A popular GIS data visualization techniques is to create a \emph{hip roof} over all footprints (f), which leads to a monotonous structure. (g)~Naively applying profiles from the input mesh to the \GISds\ leads to more interesting roof shapes; but these are inaccurate because the GIS edges are frequently not representative of real-world building walls.}
+  \label{fig:baseline_motivation}
+  \vnudge
+\end{figure*}
+
+
+In contrast, procedural pipelines (e.g., CityEngine) create homogeneous, semantically labelled urban models. 
+One such procedural pipeline uses horizontal (building) footprints and the corresponding vertical profiles to create mass models by extruding the footprint upwards along the profiles, which may then be `decorated' with building elements such as windows, doors, etc.
+Currently, this workflow is suitable for coarse approximation of larger areas, or for detailed manual modeling of particular (iconic) buildings, but it does not scale to accurate detailed modeling of wider urban areas.
+
+In this paper, we focus on the problem of \neu{procedurally} creating \outputMs by leveraging data from multiple sources (see \figref{fig:teaser} and the inset aerial view for reference).
+Such raw information has different strengths and weaknesses: for example, 
+publicly available \emph{Geographic Information System footprints} (\GISds) carry reliable records of plot ownership, but they often do not reflect built reality; polygonal meshes, often in the form of polygon soups obtained by processing aerial images, provide coarse information, but they lack semantic partitioning or fine details; \streetI (e.g., \facade photographs) provides detailed information, but it lacks 3D information or semantic labels. Further, each data source has its own coordinate system, suffers from distortion, and frequently contains mutually conflicting or partial information. 
+
+%para 4: we propose inverse PE via data fusion.
+Naively combining information across the above datasources results in various types of artifacts (see Figure~\ref{fig:baseline_motivation}). For example, extruding \GISds\ with profiles extracted from mesh data creates misleading mass models, while transferring window locations regressed from images onto estimated \facade planes results in poorly positioned windows.
+%
+
+Instead of heuristically combining the above datasources, we propose a unified fusion algorithm. 
+%
+We develop an optimization formulation that analyzes the heterogeneous data sources (i.e., \GISds, polygonal meshes, and \streetI) and retargets them to a single consistent representation. By balancing the various retargeting costs, our algorithm reaches a consensual {\em \outputM}, the output of which is building-level footprints, associated profiles along the footprint boundaries, and \facade elements placed appropriately over the  mass models (see Figure~\ref{fig:teaser}). The raw input data to our algorithm comes from various preferred layout directions (extracted from GIS information), candidate building footprints and profiles (extracted from the polygonal meshes), and \facade partitions with associated elements (extracted by analyzing the individual \facade images). Our system automatically decides {\em which} of these elements to retain and {\em how} to adapt the selected elements to create consistent output. 
+%
+Figure~\ref{fig:results} shows the input \GISds\ and the extracted building footprints produced by our algorithm. We note that the result is semantically structured in the sense that the output has labels associated with the different sections of the output model (e.g., windows, balconies, shops, walls, roofs, etc.).
+%
+Further, our algorithm does {\em not} make Manhattan-world assumptions, nor does it restrict the roof angles (i.e., roofs can be flat or sloped), nor number of pitches (i.e., \facades can alternate an arbitrary number of times between wall and roof). 
+
+%para 5: evaluation  + summary of contributions
+We demonstrate the effectiveness of our system by evaluating four differing urban settings: {\em Detroit} as a suburban US city with simple detached houses, {\em New York} with blocks of near-regular high-rise buildings arranged on a (literal) Manhattan-grid, {\em Oviedo} as a typical historic European city with non-axis aligned buildings surrounding inner courtyards, and 
+{\em London} with dense urban architecture with many annexes and complex roof shapes.
+%
+Finally, we semantically reconstruct a very large area of central London covering 37 blocks around \LondonOC\ and compare our method with state-of-the-art urban reconstruction techniques.
+
+
+In summary, we introduce a novel wide-area fusion algorithm that semantically combines multi-channel, noisy, and conflicting information to produce {\outputM}s in the form of building mass models with associated \facade elements. We demonstrate the automated method on urban neighborhoods spanning several building blocks at a scale that has not been previously demonstrated.

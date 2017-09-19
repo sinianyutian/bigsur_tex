@@ -1,0 +1,30 @@
+
+\section{Related Work}
+
+We review the relevant literature on the urban modeling and reconstruction pipeline (see~\cite{musialski2013survey} for a  survey).
+
+\subsection{Reconstructing mass models}
+There are multiple possible inputs for large-scale urban mass modeling. Mass models are often reconstructed from aerial images or \lidar~\cite{brenner2005building}. Other modalities, such as synthetic aperture radar~(SAR), ground based photographs, or videos, are less common. Furthermore, satellite data have lower resolution and drones can capture only smaller areas.
+While \lidar produces point clouds directly, images must be processed to produce sparse~\cite{snavely2006photo} or dense~\cite{furukawa2010accurate,cmzp_symmCalib_tog13}~point clouds. 
+Some integrated modeling pipelines extract mass models from images directly~\cite{dick2004modelling,vanegas2010building,garcia2013automatic}. 
+Surface models can be extracted from point clouds, e.g.,  by resampling onto a grid~\cite{poullis2009automatic}, 2.5D contouring~\cite{zhou20102}, relation-based primitive fitting~\cite{monszpart2015rapter}, or Poisson reconstruction~\cite{kazhdan2013screened}.
+Another important component in urban modeling is segmentation~\cite[e.g.,][]{matei2008building,golovinskiy2009shape,verdie2015lod} to separate buildings from other classes.
+
+Our work is mainly related to shape abstraction and simplification; we aim to create simple and plausible mass models from noisy input data. One simple model for shape abstraction is to regularize the models using the Manhattan-world assumption~\cite{li2016manhattan}. Alternately, very good results can be achieved by fitting parametric building blocks to height fields~\cite{lafarge2010structural} or \lidar input~\cite{lin2013semantic}, exploiting non-local regularity relations~\cite{zheng2010non}, or obtaining depth-layer relations by jointly analyzing images and \lidar scans~\cite{li20112d}. 
+Following Verdie et at.~\shortcite{verdie2015lod}, we use a noisy building mesh as input. They use a simplified version of Globfit~\cite{li2011globfit} to detect relationships between extracted planes to regularize the output. In contrast to this method, we  jointly analyze the different input data modalities to produce a consistent \outputM, in which, for example, the footprints of the mass models are in agreement with how the \streetI\ is partitioned into different buildings. 
+
+\subsection{Fa\c{c}ade parsing}
+% 
+The goal of \facade parsing is to extract \facade elements such as windows, doors, and balconies. The input of \facade parsing is typically a single image or a point cloud.
+A typical initial step of \facade parsing is to compute local per-pixel information, such as segmentation information~\cite{martinovic2012three}, edge detection, or symmetry detection~\cite{muller2007image}. This  input is then regularized to make it more compliant with a given model of a \neu{\facade structure~\cite{cohen2014efficient}}.
+One possible model is a grid with one spacing parameter for each row and each column~\cite{muller2007image},  which can also be represented by a rank-one matrix~\cite{yang2012parsing}.
+A more general model is a hierarchical splitting tree, in which each internal node splits into multiple horizontal or vertical slices~\cite{shen2011adaptive,dai2012learning,riemenschneider2012irregular,teboul2013parsing,kozinski2015mrf}. These hierarchical approaches differ in how they incorporate low-level features stemming from  classifiers and in how they use encoded architectural knowledge. Example solutions include use of MRFs~\cite{kozinski2015mrf}, extending the CYK algorithm~\cite{riemenschneider2012irregular},  application of reinforcement learning~\cite{teboul2013parsing}, post-processing by optimization~\cite{martinovic2012three,nan2015template,jiang2016automatic}, or jointly optimizing for template matching and deformation estimation~\cite{duygu:16:cgf}.
+A significant simplification used by these systems is to consider only \facade images that have been rectified and cropped for individual buildings.
+
+\pagebreak
+
+\subsection{Interactive reconstruction}
+To achieve improved results, another line of work investigates interactive techniques for mass modeling~\cite{debevec1996modeling}, or \facade parsing. For example, Nan et al. present an interactive \facade modeling system for \lidar data~\shortcite{nan2010smartboxes} and Xiao et al. propose an interactive system for images~\shortcite{xiao2008image}. Another recent concept is to train multiple neural networks to interactively create procedural models from input sketches~\cite{nishida2016interactive}. In contrast, we aim to create an automatic system.
+
+In this work, we build on the geometry of the \neu{straight skeleton~\cite{aichholzer1996novel}} to model architecture. Early work used the \emph{unweighted} straight skeleton to \neu{model roofs~\cite{laycock2003automatically, muller2006procedural}} and walls ~\cite{fang2013image}. 
+The \emph{weighted} skeleton~\cite{eppstein1999raising} offered enhanced expressiveness; in particular, the \emph{procedural extrusion} system (PE)~\cite{kelly2011interactive} consisted of stacked weighted skeletons. \neu{Recently, Biedl et al.~\shortcite{biedl2016planar} reinforced the theoretical underpinnings of the weighted straight skeleton, renewing our interest in PEs.} Essentially, PEs are a parameterization of architecture into a horizontal 2D plan with a set of vertical 2D profiles that are associated with the edges of this plan. Such a parameterization can represent buildings with arbitrarily angled walls and roofs to provide a strong architectural prior. In this work, we develop a method to project real-world data into the space of buildings represented by PEs.

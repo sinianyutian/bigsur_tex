@@ -1,0 +1,38 @@
+\documentclass{article}
+
+
+\usepackage{graphicx}
+ \usepackage[margin=2cm]{geometry}
+\date{}
+
+ \title{Supplemental Material}
+ 
+  
+\begin{document}
+\graphicspath{{../images/megafacades/}}
+\maketitle{}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../images/results/results_pink.png}
+    \caption{The input meshes for Figure~15 in Section 6 of the main paper.}
+    \label{fig:results}
+\end{figure}
+
+\begin{figure}
+   \centering
+  \def\svgwidth{0.5\linewidth}  
+   \input{../images/megafacades/reference.pdf_tex}
+  \caption{Reference images for Figure~15. Left column: Satellite aerial images. Right column: Orthographic photographic images. Rows: Oviedo, Manhattan and London. The Manhattan orthographic image is most likely photographic textures rendered onto a mesh.}
+  \label{fig:reference}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{../images/results/oxford_sources.png}
+    \caption{A visualization of some of the input data for Figure~16. The projected image planes are shown in green, the image centers as orange cubes, and the coarse meshes in pink. Note the intersections between the meshes and the image planes.}
+    \label{fig:results}
+\end{figure}
+
+
+\end{document}

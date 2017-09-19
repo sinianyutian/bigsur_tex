@@ -1,0 +1,258 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\AC@reset@newl@bel
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces {\it  Structured Urban Reconstruction.} Given street-level imagery\xspace  , GIS footprints\xspace  , and a coarse 3D mesh (left), we formulate a global optimization to automatically fuse these noisy, incomplete, and conflicting data sources to create building footprints (middle: colored horizontal polygons) with profiles (vertical ribbons shown for several footprints) and attached building fa\c {c}ades\xspace  \nonbreakingspace (vertical rectangles). The output encodes a structured urban model\nonbreakingspace (right) including the walls, roof, and associated building elements (e.g., windows, balconies, roof, wall color, etc.). Inset below: A reference aerial image. \relax }}{1}{figure.caption.1}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:teaser}{{1}{1}{{\it Structured Urban Reconstruction.} Given \streetI , \GISds , and a coarse 3D mesh (left), we formulate a global optimization to automatically fuse these noisy, incomplete, and conflicting data sources to create building footprints (middle: colored horizontal polygons) with profiles (vertical ribbons shown for several footprints) and attached building \facades ~(vertical rectangles). The output encodes a structured urban model~(right) including the walls, roof, and associated building elements (e.g., windows, balconies, roof, wall color, etc.). Inset below: A reference aerial image. \relax }{figure.caption.1}{}}
+\newacro{GSV}[GSV]{Google Street\discretionary {-}{}{}View}
+\newacro{CNN}[CNN]{Convolutional Neural Network}
+\newacro{GIS}[GIS]{Geospatial Information System}
+\newacro{IoU}[IoU]{Intersection over Union}
+\newacro{VR}[VR]{Virtual Reality}
+\@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{musialski2013survey}
+\citation{brenner2005building}
+\citation{snavely2006photo}
+\citation{furukawa2010accurate,cmzp_symmCalib_tog13}
+\citation{dick2004modelling,vanegas2010building,garcia2013automatic}
+\citation{poullis2009automatic}
+\citation{zhou20102}
+\citation{monszpart2015rapter}
+\citation{kazhdan2013screened}
+\citation{matei2008building,golovinskiy2009shape,verdie2015lod}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces {\it  Baseline methods.} (a)\nonbreakingspace GIS footprints\xspace  \ represent plot ownership more accurately than building structure. (b)\nonbreakingspace Image features, such as windows (cuboids) extracted from street-level imagery\xspace  , are available only near where the images have been taken (cubes), and lack information about the interior of the structure; different images may give contradictory features for the same building. (c)\nonbreakingspace Raw polygonal meshes tend to be more complete, but they contain noise and are typically polygon soups. One reconstruction possibility is to fit horizontal ``floors'' to the mesh\nonbreakingspace (d), while another is to extrude the GIS footprints to heights available from a database\nonbreakingspace (e). Both these approaches fail to convey the roof structures of the input. A popular GIS data visualization techniques is to create a \emph  {hip roof} over all footprints (f), which leads to a monotonous structure. (g)\nonbreakingspace Naively applying profiles from the input mesh to the GIS footprints\xspace  \ leads to more interesting roof shapes; but these are inaccurate because the GIS edges are frequently not representative of real-world building walls.\relax }}{2}{figure.caption.4}}
+\newlabel{fig:baseline_motivation}{{2}{2}{{\it Baseline methods.} (a)~\GISds \ represent plot ownership more accurately than building structure. (b)~Image features, such as windows (cuboids) extracted from \streetI , are available only near where the images have been taken (cubes), and lack information about the interior of the structure; different images may give contradictory features for the same building. (c)~Raw polygonal meshes tend to be more complete, but they contain noise and are typically polygon soups. One reconstruction possibility is to fit horizontal ``floors'' to the mesh~(d), while another is to extrude the GIS footprints to heights available from a database~(e). Both these approaches fail to convey the roof structures of the input. A popular GIS data visualization techniques is to create a \emph {hip roof} over all footprints (f), which leads to a monotonous structure. (g)~Naively applying profiles from the input mesh to the \GISds \ leads to more interesting roof shapes; but these are inaccurate because the GIS edges are frequently not representative of real-world building walls.\relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Reconstructing mass models}{2}{subsection.2.1}}
+\citation{li2016manhattan}
+\citation{lafarge2010structural}
+\citation{lin2013semantic}
+\citation{zheng2010non}
+\citation{li20112d}
+\citation{verdie2015lod}
+\citation{li2011globfit}
+\citation{martinovic2012three}
+\citation{muller2007image}
+\citation{cohen2014efficient}
+\citation{muller2007image}
+\citation{yang2012parsing}
+\citation{shen2011adaptive,dai2012learning,riemenschneider2012irregular,teboul2013parsing,kozinski2015mrf}
+\citation{kozinski2015mrf}
+\citation{riemenschneider2012irregular}
+\citation{teboul2013parsing}
+\citation{martinovic2012three,nan2015template,jiang2016automatic}
+\citation{duygu:16:cgf}
+\citation{debevec1996modeling}
+\citation{nan2010smartboxes}
+\citation{xiao2008image}
+\citation{nishida2016interactive}
+\citation{aichholzer1996novel}
+\citation{laycock2003automatically,muller2006procedural}
+\citation{fang2013image}
+\citation{eppstein1999raising}
+\citation{kelly2011interactive}
+\citation{biedl2016planar}
+\citation{osm}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Fa\c {c}ade parsing}{3}{subsection.2.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces {\it  Overview.} Starting from GIS footprints\xspace  , a coarse 3D mesh, and street-level imagery\xspace  , we extract a set of sweep-edges\xspace  , $\mathcal  {S}$, a set of clean-profiles\xspace  , $\mathcal  {C}$, and a set of building-fa\c {c}ades\xspace  , $\mathcal  {B}$. These are then globally optimized to produce a semantically parsed building block as output.\relax }}{3}{figure.caption.5}}
+\newlabel{fig:setup}{{3}{3}{{\it Overview.} Starting from \GISds , a coarse 3D mesh, and \streetI , we extract a set of \sweepedges , $\mathcal {S}$, a set of \cleanprofiles , $\mathcal {C}$, and a set of \buildingfacades , $\mathcal {B}$. These are then globally optimized to produce a semantically parsed building block as output.\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Interactive reconstruction}{3}{subsection.2.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Problem Setup}{3}{section.3}}
+\newlabel{sec:setup}{{3}{3}{Problem Setup}{section.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces {{\it  Terminology.} Left: The data are used to create street-level imagery\xspace  with associated fa\c {c}ade\xspace  planes (orange), raw-profiles\xspace  (blue) and sweep-edges\xspace  (pink). Center: These are processed to create the input to the optimization --- a smaller set of clean-profiles\xspace  (blue), building-fa\c {c}ades\xspace  (orange lines), and building-fa\c {c}ade-points\xspace  (orange points), and a ground plane\xspace  tessellation consisting of sweep-edges\xspace  (pink) and soft-edges\xspace  (black) enclosing faces\xspace  . Right: The output of the optimization is a collection of watertight footprint-polygons\xspace  (pink and purple), with a clean-profile\xspace  assigned to every edge, and positions for every building-fa\c {c}ade\xspace  (orange).}\relax }}{4}{figure.caption.6}}
+\newlabel{fig:terminology}{{4}{4}{\neu {{\it Terminology.} Left: The data are used to create \streetI with associated \facade planes (orange), \rawprofiles (blue) and \sweepedges (pink). Center: These are processed to create the input to the optimization --- a smaller set of \cleanprofiles (blue), \buildingfacades (orange lines), and \buildingfacadepoints (orange points), and a \groundplane tessellation consisting of \sweepedges (pink) and \softedges (black) enclosing \faces . Right: The output of the optimization is a collection of watertight \footprintpolygons (pink and purple), with a \cleanprofile assigned to every edge, and positions for every \buildingfacade (orange).}\relax }{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}GIS footprints\xspace  }{4}{subsection.3.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Coarse 3D mesh}{4}{subsection.3.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Street-level fa\c {c}ade\xspace  \ images}{4}{subsection.3.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Notation}{4}{subsection.3.4}}
+\newlabel{sec:notation}{{3.4}{4}{Notation}{subsection.3.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces {\it  Sweep-edges\xspace  and soft-edges\xspace  .} A set of sweep-edges\xspace  (a, pink) are extended to oversegment the ground plane\xspace  \nonbreakingspace (b) into faces. The sweep-edges\xspace  are inserted one at a time, in order of decreasing length. To complete the tessellation, the sweep-edges\xspace  are extended by \emph  {soft-edges\xspace  }\nonbreakingspace (black). The building-fa\c {c}ade-points\xspace  \nonbreakingspace (c) further subdivide the ground plane\xspace  if there are no existing similar edges. Finally, we remove faces that are mostly outside the GIS footprint (d, green) to create the tessellation, $\mathbb  {G}$.\relax }}{5}{figure.caption.7}}
+\newlabel{fig:subdiv}{{5}{5}{{\it \Sweepedges and \softedges .} A set of \sweepedges (a, pink) are extended to oversegment the \groundplane ~(b) into faces. The \sweepedges are inserted one at a time, in order of decreasing length. To complete the tessellation, the \sweepedges are extended by \emph {\softedges }~(black). The \buildingfacadepoints ~(c) further subdivide the \groundplane if there are no existing similar edges. Finally, we remove faces that are mostly outside the GIS footprint (d, green) to create the tessellation, $\mathbb {G}$.\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Fusion Optimization}{5}{section.4}}
+\newlabel{sec:globopt}{{4}{5}{Fusion Optimization}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Formulation}{5}{subsection.4.1}}
+\newlabel{subsec:formulation}{{4.1}{5}{Formulation}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Identifying footprint-polygons\xspace  }{5}{subsubsection.4.1.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces {\it  Oversegmenting the ground plane\xspace  .} We use sweep-edges\xspace  and GIS footprints\xspace  \ to overpartition the ground plane. Left:\nonbreakingspace The sweep-edges\xspace  \nonbreakingspace (pink) along with their soft-edge\xspace  extensions\nonbreakingspace (black) partition the plane. Center:\nonbreakingspace Further oversegmentation based on the building-fa\c {c}ades\xspace  extracted from street-level imagery\xspace  \ (blue). Right:\nonbreakingspace using height and GIS information (green) we identify the interior faces\xspace  to produce the oversegmentation, $\mathbb  {G}$.\relax }}{5}{figure.caption.8}}
+\newlabel{fig:partition}{{6}{5}{{\it Oversegmenting the \groundplane .} We use \sweepedges and \GISds \ to overpartition the ground plane. Left:~The \sweepedges ~(pink) along with their \softedge extensions~(black) partition the plane. Center:~Further oversegmentation based on the building-\facades extracted from \streetI \ (blue). Right:~using height and GIS information (green) we identify the interior \faces to produce the oversegmentation, $\mathbb {G}$.\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textit  {Valid footprint-polygons\xspace  .} {Left: A set of edges, $\{s{}\}$. Center: Two geometrically invalid partitions using those edges caused by self-grazing polygons (a), dangling edges (b), and holes in the boundary (c). Right: Valid footprint-polygons\xspace  are map-coloring solutions.}\relax }}{5}{figure.caption.9}}
+\newlabel{fig:valid}{{7}{5}{\textit {Valid \footprintpolygons .} \neu {Left: A set of edges, $\{\isEdge {}\}$. Center: Two geometrically invalid partitions using those edges caused by self-grazing polygons (a), dangling edges (b), and holes in the boundary (c). Right: Valid \footprintpolygons are map-coloring solutions.}\relax }{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Selecting clean-profiles\xspace  }{6}{subsubsection.4.1.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces {\it  Undesirable fa\c {c}ade\xspace  \ splits.} Left-center: PEs are unstable when different profiles (blue) are selected on nearly parallel edges (green); moving a single point (orange) a short distance creates a very different result. Right: To avoid this situation, the clean-profiles\xspace  of the adjacent parallel edges (given by the selection vectors $\mathbold  {\eta }^j$ and $\mathbold  {\eta }^k$) are constrained to be equal, if the dividing edge is selected ($s^l = 1$).\relax }}{6}{figure.caption.10}}
+\newlabel{fig:nearParallelProfiles}{{8}{6}{{\it Undesirable \facade \ splits.} Left-center: PEs are unstable when different profiles (blue) are selected on nearly parallel edges (green); moving a single point (orange) a short distance creates a very different result. Right: To avoid this situation, the \cleanprofiles of the adjacent parallel edges (given by the selection vectors $\mathbold {\eta }^j$ and $\mathbold {\eta }^k$) are constrained to be equal, if the dividing edge is selected ($\isEdge ^l = 1$).\relax }{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Retargeting building-fa\c {c}ades\xspace  }{7}{subsubsection.4.1.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces {\it  Stretch and height disparity.} Left: We evaluate the fit of the building-fa\c {c}ade\xspace  (blue) to the 3D mesh (grey) using stretch and height disparity. Right: The building-fa\c {c}ade-points\xspace  , $m_1, m_2, m_3$, are grouped into a cluster, {$\mathbb  {C}_i$}, with representative $m^i_\star $. The indicator variable $\gamma ^{(i,1)}$ (or $\gamma ^{(i,2)}$) denotes which of the points in cluster {$\mathbb  {C}_i$} are mapped to the boundary vertex, $v_1$ (or $v_2$).\relax }}{7}{figure.caption.11}}
+\newlabel{fig:mfpoint}{{9}{7}{{\it Stretch and height disparity.} Left: We evaluate the fit of the \buildingfacade (blue) to the 3D mesh (grey) using stretch and height disparity. Right: The \buildingfacadepoints , $m_1, m_2, m_3$, are grouped into a cluster, \neu {$\mathbb {C}_i$}, with representative $m^i_\star $. The indicator variable $\gamma ^{(i,1)}$ (or $\gamma ^{(i,2)}$) denotes which of the points in cluster \neu {$\mathbb {C}_i$} are mapped to the boundary vertex, $v_1$ (or $v_2$).\relax }{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.4}Objective function}{7}{subsubsection.4.1.4}}
+\citation{kelly2011interactive}
+\citation{mean-shift}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces {\it  Overlapping building-fa\c {c}ade\xspace  \ elements.} An urban block is typically covered by multiple overlapping fa\c {c}ade\xspace  images, giving repeated bounding rectangles for many elements, such as {windows (turquoise), shops (pink), balconies (orange), doors (green), mouldings (dark blue), and building-fa\c {c}ade\xspace  boundaries (light blue)}. The left-most visible facade of Figure.\nonbreakingspace \ref  {fig:teaser} was reconstructed from these overlapping elements.\relax }}{8}{figure.caption.14}}
+\newlabel{fig:overlapping_features}{{10}{8}{{\it Overlapping building-\facade \ elements.} An urban block is typically covered by multiple overlapping \facade images, giving repeated bounding rectangles for many elements, such as \neu {windows (turquoise), shops (pink), balconies (orange), doors (green), mouldings (dark blue), and \buildingfacade boundaries (light blue)}. The left-most visible facade of Figure.~\ref {fig:teaser} was reconstructed from these overlapping elements.\relax }{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Creating the Structured Model}{8}{subsection.4.2}}
+\newlabel{sec:post}{{4.2}{8}{Creating the Structured Model}{subsection.4.2}{}}
+\AC@undonewlabel{acro:GSV}
+\newlabel{acro:GSV}{{4.2}{8}{Creating the Structured Model}{section*.13}{}}
+\acronymused{GSV}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation Details}{8}{section.5}}
+\newlabel{sec:processing}{{5}{8}{Implementation Details}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Extracting Sweep-edges and Profiles}{8}{subsection.5.1}}
+\newlabel{sec:profiles}{{5.1}{8}{Extracting Sweep-edges and Profiles}{subsection.5.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces {\it  Sweep-edges and profile analysis.} A horizontal slice of the mesh (a, orange), has polylines fitted to it (b) and is regularized by the GIS information (b, green). These are clustered from the seed-lines\xspace  (c, bold lines), and the associated prominent-faces\xspace  \nonbreakingspace (d), which can be used to find the raw-profiles (e). \relax }}{9}{figure.caption.15}}
+\newlabel{fig:profs}{{11}{9}{{\it Sweep-edges and profile analysis.} A horizontal slice of the mesh (a, orange), has polylines fitted to it (b) and is regularized by the GIS information (b, green). These are clustered from the \seedlines (c, bold lines), and the associated \prominentfaces ~(d), which can be used to find the raw-profiles (e). \relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces \textit  {Raw- and clean-profiles.} Left: Each color represents a cluster of adjacent and similar raw-profiles\xspace  from Figure\nonbreakingspace \ref  {fig:teaser}. Right:\nonbreakingspace A cluster of raw-profiles\xspace  \nonbreakingspace (grey) has line segments fitted to it\nonbreakingspace (purple) and is finally regularized to yield a clean-profile\xspace  \nonbreakingspace (blue).\relax }}{9}{figure.caption.16}}
+\newlabel{fig:profile_cleanup}{{12}{9}{\textit {Raw- and clean-profiles.} Left: Each color represents a cluster of adjacent and similar \rawprofiles from Figure~\ref {fig:teaser}. Right:~A cluster of \rawprofiles ~(grey) has line segments fitted to it~(purple) and is finally regularized to yield a \cleanprofile ~(blue).\relax }{figure.caption.16}{}}
+\citation{anguelov2010google}
+\citation{kendall2015bayesian,badrinarayanan2017segnet}
+\citation{BrostowSFC:ECCV08}
+\citation{Cordts2016Cityscapes}
+\citation{affara2016large}
+\citation{tylecek2012cmp}
+\citation{affara2016large}
+\citation{Eigen2015-aj}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces {\it  Training data and fa\c {c}ade\xspace  \ classification.} Top-left: The ground truth used to for the `Fa\c {c}ade\xspace  ' and `Window' labels. Remainder: The source image (top-right) used to compare a model trained to recognize a single set of disjoint labels (bottom-left) with one trained to recognize independent sets of labels for each type of feature with edge labels (bottom-right). Each model was trained for 150 Epochs. The second option leads to crisper features.\relax }}{10}{figure.caption.18}}
+\newlabel{fig:edge-compare}{{13}{10}{{\it Training data and \facade \ classification.}\sout { The independent labels used to train an image segmentation model;} Top-left: The ground truth used to for the `\Facade ' and `Window' labels. Remainder: The source image (top-right) used to compare a model trained to recognize a single set of disjoint labels (bottom-left) with one trained to recognize independent sets of labels for each type of feature with edge labels (bottom-right). Each model was trained for 150 Epochs. The second option leads to crisper features.\relax }{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Acquiring Street-level Imagery}{10}{subsection.5.2}}
+\newlabel{sec:acquiring-images}{{5.2}{10}{Acquiring Street-level Imagery}{subsection.5.2}{}}
+\acronymused{GSV}
+\acronymused{GSV}
+\acronymused{GSV}
+\acronymused{GSV}
+\acronymused{GSV}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces {\it  Finding fa\c {c}ade\xspace  extents.} Left: We split images with multiple fa\c {c}ades\xspace  based on the peaks of the vertical sums of the fa\c {c}ade\xspace  `Edge' scores that are output by the segmenter (superimposed in blue over the image); fa\c {c}ades\xspace  are split at the highest point of each interval where the projection's value is more than one standard deviation ($\sigma $) above its mean ($\mu $). Right: The integral of the detected 'Sky' label (green) is used with a threshold to identify the top of the fa\c {c}ade\xspace  .\relax }}{10}{figure.caption.19}}
+\newlabel{fig:facade-cuts}{{14}{10}{{\it Finding \facade extents.} Left: We split images with multiple \facades based on the peaks of the vertical sums of the \facade `Edge' scores that are output by the segmenter (superimposed in blue over the image); \facades are split at the highest point of each interval where the projection's value is more than one standard deviation ($\sigma $) above its mean ($\mu $). Right: The integral of the detected 'Sky' label (green) is used with a threshold to identify the top of the \facade .\relax }{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Analyzing Street-level Imagery}{10}{subsection.5.3}}
+\newlabel{sec:cnns}{{5.3}{10}{Analyzing Street-level Imagery}{subsection.5.3}{}}
+\acronymused{GSV}
+\acronymused{GSV}
+\acronymused{GSV}
+\acronymused{GSV}
+\citation{affara2016large}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces {\it  Oviedo, Manhattan, and London.} City blocks from Oviedo (left, center-left), Manhattan (center-right) and London: Little Portland Street\ (right, as Figure\nonbreakingspace \ref  {fig:teaser}). Top: Our results. Bottom: input GIS footprints\xspace  \nonbreakingspace (green) and optimization output floorplans (blue). See also Table\nonbreakingspace \ref  {table:runtimes2}.\relax }}{11}{figure.caption.20}}
+\newlabel{fig:results}{{15}{11}{{\it Oviedo, Manhattan, and London.} City blocks from Oviedo (left, center-left), Manhattan (center-right) and London: \LondonRS \ (right, as Figure~\ref {fig:teaser}). Top: Our results. Bottom: input \GISds ~(green) and optimization output floorplans (blue). See also Table~\ref {table:runtimes2}.\relax }{figure.caption.20}{}}
+\acronymused{GSV}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Training and Evaluation}{11}{subsubsection.5.3.1}}
+\acronymused{GSV}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Collecting color estimates}{11}{subsubsection.5.3.2}}
+\citation{gurobi}
+\citation{jia2014caffe}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces {\it  London: Oxford Circus\ blocks.} Structured urban reconstruction spanning 37 blocks and 1,011 buildings. \relax }}{12}{figure.caption.21}}
+\newlabel{fig:results_london_big}{{16}{12}{{\it London: \LondonOC \ blocks.} Structured urban reconstruction spanning 37 blocks and 1,011 buildings. \relax }{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Results}{12}{section.6}}
+\newlabel{sec:results}{{6}{12}{Results}{section.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Details for Figure\nonbreakingspace \ref  {fig:results}. Values are given for location, number of clean profiles ($|\mathcal  {C}|$) and sweep edges ($|\mathcal  {S}|$), binary variables (vars) and constraints (constr), number of output footprints (fp), and the solve times.\relax }}{12}{table.caption.23}}
+\newlabel{table:runtimes2}{{1}{12}{Details for Figure~\ref {fig:results}. Values are given for location, number of clean profiles ($|\mathcal {C}|$) and sweep edges ($|\mathcal {S}|$), binary variables (vars) and constraints (constr), number of output footprints (fp), and the solve times.\relax }{table.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces  {\it  Detroit}. {Without building-fa\c {c}ades\xspace  , our technique exhibits strong architectural regularization with the coarse mesh (pink) and GIS footprint\xspace  \ (green, no interior edges) as inputs. See Table\nonbreakingspace \ref  {table:runtimes1} for details.}\relax }}{12}{figure.caption.22}}
+\newlabel{fig:detroitResults}{{17}{12}{{\it Detroit}. \neu {Without building-\facades , our technique exhibits strong architectural regularization with the coarse mesh (pink) and \GISd \ (green, no interior edges) as inputs. See Table~\ref {table:runtimes1} for details.}\relax }{figure.caption.22}{}}
+\citation{Kazhdan2006}
+\citation{li2016manhattan}
+\citation{salinas2015structure}
+\citation{Kazhdan2006}
+\citation{li2016manhattan}
+\citation{salinas2015structure}
+\citation{Kazhdan2006}
+\citation{li2016manhattan}
+\citation{salinas2015structure}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces {Details for Figure\nonbreakingspace \ref  {fig:detroitResults}, columns as in Table\nonbreakingspace \ref  {table:runtimes2}.} \relax }}{13}{table.caption.24}}
+\newlabel{table:runtimes1}{{2}{13}{\neu {Details for Figure~\ref {fig:detroitResults}, columns as in Table~\ref {table:runtimes2}.} \relax }{table.caption.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Timings}{13}{subsection.6.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Comparison}{13}{subsection.6.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Little Portland Street}{13}{subsection.6.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Limitations}{13}{subsection.6.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces {\it  Limitations.} (Top)\nonbreakingspace Curved fa\c {c}ades\xspace  can become over-fragmented during sweep-line fitting and then adversely affect the street-level imagery\xspace  \ analysis stage, resulting in missed building-fa\c {c}ade\xspace  elements. (Bottom)\nonbreakingspace Another limitation is handling buildings with curved profiles. \relax }}{13}{figure.caption.25}}
+\newlabel{fig:problems}{{18}{13}{{\it Limitations.} (Top)~Curved \facades can become over-fragmented during sweep-line fitting and then adversely affect the \streetI \ analysis stage, resulting in missed \buildingfacade elements. (Bottom)~Another limitation is handling buildings with curved profiles. \relax }{figure.caption.25}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces {\it  Comparison.} Columns left to right, input polygon soup mesh, Poisson reconstruction\nonbreakingspace \citep  {Kazhdan2006}, Manhattan box fitting\nonbreakingspace \citep  {li2016manhattan}, Structure-Aware Mesh Decimation\nonbreakingspace \citep  {salinas2015structure} and our technique (without {GIS footprint\xspace  }s or building-fa\c {c}ade\xspace  inputs).\relax }}{14}{figure.caption.26}}
+\newlabel{fig:comparis2}{{19}{14}{{\it Comparison.} Columns left to right, input polygon soup mesh, Poisson reconstruction~\cite {Kazhdan2006}, Manhattan box fitting~\cite {li2016manhattan}, Structure-Aware Mesh Decimation~\cite {salinas2015structure} and our technique (without {\GISd }s or \buildingfacade inputs).\relax }{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{14}{section.7}}
+\newlabel{sec:conclusion}{{7}{14}{Conclusion}{section.7}{}}
+\citation{optBook08}
+\citation{gurobi}
+\bibstyle{ACM-Reference-Format}
+\bibdata{paper}
+\bibcite{affara2016large}{{1}{2016}{{Affara et~al\unhbox \voidb@x \hbox {.}}}{{Affara, Nan, Ghanem, and Wonka}}}
+\bibcite{aichholzer1996novel}{{2}{1996}{{Aichholzer et~al\unhbox \voidb@x \hbox {.}}}{{Aichholzer, Aurenhammer, Alberts, and G{\"a}rtner}}}
+\bibcite{anguelov2010google}{{3}{2010}{{Anguelov et~al\unhbox \voidb@x \hbox {.}}}{{Anguelov, Dulong, Filip, Frueh, Lafon, Lyon, Ogale, Vincent, and Weaver}}}
+\bibcite{badrinarayanan2017segnet}{{4}{2017}{{Badrinarayanan et~al\unhbox \voidb@x \hbox {.}}}{{Badrinarayanan, Kendall, and Cipolla}}}
+\bibcite{biedl2016planar}{{5}{2016}{{Biedl et~al\unhbox \voidb@x \hbox {.}}}{{Biedl, Huber, and Palfrader}}}
+\bibcite{brenner2005building}{{6}{2005}{{Brenner}}{{Brenner}}}
+\bibcite{BrostowSFC:ECCV08}{{7}{2008}{{Brostow et~al\unhbox \voidb@x \hbox {.}}}{{Brostow, Shotton, Fauqueur, and Cipolla}}}
+\bibcite{duygu:16:cgf}{{8}{2016}{{Ceylan et~al\unhbox \voidb@x \hbox {.}}}{{Ceylan, Dang, J.~Mitra, Neubert, and Pauly}}}
+\bibcite{cmzp_symmCalib_tog13}{{9}{2013}{{Ceylan et~al\unhbox \voidb@x \hbox {.}}}{{Ceylan, Mitra, Zheng, and Pauly}}}
+\bibcite{optBook08}{{10}{2008}{{Chinneck}}{{Chinneck}}}
+\bibcite{cohen2014efficient}{{11}{2014}{{Cohen et~al\unhbox \voidb@x \hbox {.}}}{{Cohen, Schwing, and Pollefeys}}}
+\bibcite{Cordts2016Cityscapes}{{12}{2016}{{Cordts et~al\unhbox \voidb@x \hbox {.}}}{{Cordts, Omran, Ramos, Rehfeld, Enzweiler, Benenson, Franke, Roth, and Schiele}}}
+\bibcite{dai2012learning}{{13}{2012}{{Dai et~al\unhbox \voidb@x \hbox {.}}}{{Dai, Prasad, Schmitt, and Van~Gool}}}
+\bibcite{debevec1996modeling}{{14}{1996}{{Debevec et~al\unhbox \voidb@x \hbox {.}}}{{Debevec, Taylor, and Malik}}}
+\bibcite{dick2004modelling}{{15}{2004}{{Dick et~al\unhbox \voidb@x \hbox {.}}}{{Dick, Torr, and Cipolla}}}
+\bibcite{Eigen2015-aj}{{16}{2015}{{Eigen and Fergus}}{{Eigen and Fergus}}}
+\bibcite{eppstein1999raising}{{17}{1999}{{Eppstein and Erickson}}{{Eppstein and Erickson}}}
+\bibcite{fang2013image}{{18}{2013}{{Fang et~al\unhbox \voidb@x \hbox {.}}}{{Fang, Wang, Zhang, and Quan}}}
+\bibcite{mean-shift}{{19}{1975}{{Fukunaga and Hostetler}}{{Fukunaga and Hostetler}}}
+\bibcite{furukawa2010accurate}{{20}{2010}{{Furukawa and Ponce}}{{Furukawa and Ponce}}}
+\bibcite{garcia2013automatic}{{21}{2013}{{Garcia-Dorado et~al\unhbox \voidb@x \hbox {.}}}{{Garcia-Dorado, Demir, and Aliaga}}}
+\bibcite{golovinskiy2009shape}{{22}{2009}{{Golovinskiy et~al\unhbox \voidb@x \hbox {.}}}{{Golovinskiy, Kim, and Funkhouser}}}
+\bibcite{gurobi}{{23}{2016}{{Gurobi}}{{Gurobi}}}
+\bibcite{jia2014caffe}{{24}{2014}{{Jia et~al\unhbox \voidb@x \hbox {.}}}{{Jia, Shelhamer, Donahue, Karayev, Long, Girshick, Guadarrama, and Darrell}}}
+\bibcite{jiang2016automatic}{{25}{2016}{{Jiang et~al\unhbox \voidb@x \hbox {.}}}{{Jiang, Nan, Yan, Dong, Zhang, and Wonka}}}
+\bibcite{Kazhdan2006}{{26}{2006}{{Kazhdan et~al\unhbox \voidb@x \hbox {.}}}{{Kazhdan, Bolitho, and Hoppe}}}
+\bibcite{kazhdan2013screened}{{27}{2013}{{Kazhdan and Hoppe}}{{Kazhdan and Hoppe}}}
+\bibcite{kelly2011interactive}{{28}{2011}{{Kelly and Wonka}}{{Kelly and Wonka}}}
+\bibcite{kendall2015bayesian}{{29}{2015}{{Kendall et~al\unhbox \voidb@x \hbox {.}}}{{Kendall, Badrinarayanan, , and Cipolla}}}
+\bibcite{kozinski2015mrf}{{30}{2015}{{Kozinski et~al\unhbox \voidb@x \hbox {.}}}{{Kozinski, Gadde, Zagoruyko, Obozinski, and Marlet}}}
+\bibcite{lafarge2010structural}{{31}{2010}{{Lafarge et~al\unhbox \voidb@x \hbox {.}}}{{Lafarge, Descombes, Zerubia, and Pierrot-Deseilligny}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Representing Boolean Operators in a BIP}{15}{appendix.A}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Expressing Boolean operations in a BIP.\relax }}{15}{table.caption.28}}
+\newlabel{table:ops}{{3}{15}{Expressing Boolean operations in a BIP.\relax }{table.caption.28}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Avoiding Bad Geometry}{15}{appendix.B}}
+\@writefile{toc}{\contentsline {section}{References}{15}{section*.31}}
+\bibcite{laycock2003automatically}{{32}{2003}{{Laycock and Day}}{{Laycock and Day}}}
+\bibcite{li2016manhattan}{{33}{2016}{{Li et~al\unhbox \voidb@x \hbox {.}}}{{Li, Wonka, and Nan}}}
+\bibcite{li2011globfit}{{34}{2011a}{{Li et~al\unhbox \voidb@x \hbox {.}}}{{Li, Wu, Chrysathou, Sharf, Cohen-Or, and Mitra}}}
+\bibcite{li20112d}{{35}{2011b}{{Li et~al\unhbox \voidb@x \hbox {.}}}{{Li, Zheng, Sharf, Cohen-Or, Chen, and Mitra}}}
+\bibcite{lin2013semantic}{{36}{2013}{{Lin et~al\unhbox \voidb@x \hbox {.}}}{{Lin, Gao, Zhou, Lu, Ye, Zhang, Liu, and Yang}}}
+\bibcite{martinovic2012three}{{37}{2012}{{Martinovi{\'c} et~al\unhbox \voidb@x \hbox {.}}}{{Martinovi{\'c}, Mathias, Weissenberg, and Van~Gool}}}
+\bibcite{matei2008building}{{38}{2008}{{Matei et~al\unhbox \voidb@x \hbox {.}}}{{Matei, Sawhney, Samarasekera, Kim, and Kumar}}}
+\bibcite{osm}{{39}{2017}{{Miller et~al\unhbox \voidb@x \hbox {.}}}{{Miller et~al\unhbox \voidb@x \hbox {.}}}}
+\bibcite{monszpart2015rapter}{{40}{2015}{{Monszpart et~al\unhbox \voidb@x \hbox {.}}}{{Monszpart, Mellado, Brostow, and Mitra}}}
+\bibcite{muller2006procedural}{{41}{2006}{{M{\"u}ller et~al\unhbox \voidb@x \hbox {.}}}{{M{\"u}ller, Wonka, Haegler, Ulmer, and Van~Gool}}}
+\bibcite{muller2007image}{{42}{2007}{{M{\"u}ller et~al\unhbox \voidb@x \hbox {.}}}{{M{\"u}ller, Zeng, Wonka, and Van~Gool}}}
+\bibcite{musialski2013survey}{{43}{2013}{{Musialski et~al\unhbox \voidb@x \hbox {.}}}{{Musialski, Wonka, Aliaga, Wimmer, Gool, and Purgathofer}}}
+\bibcite{nan2015template}{{44}{2015}{{Nan et~al\unhbox \voidb@x \hbox {.}}}{{Nan, Jiang, Ghanem, and Wonka}}}
+\bibcite{nan2010smartboxes}{{45}{2010}{{Nan et~al\unhbox \voidb@x \hbox {.}}}{{Nan, Sharf, Zhang, Cohen-Or, and Chen}}}
+\bibcite{nishida2016interactive}{{46}{2016}{{Nishida et~al\unhbox \voidb@x \hbox {.}}}{{Nishida, Garcia-Dorado, Aliaga, Benes, and Bousseau}}}
+\bibcite{poullis2009automatic}{{47}{2009}{{Poullis and You}}{{Poullis and You}}}
+\bibcite{riemenschneider2012irregular}{{48}{2012}{{Riemenschneider et~al\unhbox \voidb@x \hbox {.}}}{{Riemenschneider, Krispel, Thaller, Donoser, Havemann, Fellner, and Bischof}}}
+\bibcite{salinas2015structure}{{49}{2015}{{Salinas et~al\unhbox \voidb@x \hbox {.}}}{{Salinas, Lafarge, and Alliez}}}
+\bibcite{shen2011adaptive}{{50}{2011}{{Shen et~al\unhbox \voidb@x \hbox {.}}}{{Shen, Huang, Fu, and Hu}}}
+\bibcite{snavely2006photo}{{51}{2006}{{Snavely et~al\unhbox \voidb@x \hbox {.}}}{{Snavely, Seitz, and Szeliski}}}
+\bibcite{teboul2013parsing}{{52}{2013}{{Teboul et~al\unhbox \voidb@x \hbox {.}}}{{Teboul, Kokkinos, Simon, Koutsourakis, and Paragios}}}
+\bibcite{tylecek2012cmp}{{53}{2012}{{Tylecek}}{{Tylecek}}}
+\bibcite{vanegas2010building}{{54}{2010}{{Vanegas et~al\unhbox \voidb@x \hbox {.}}}{{Vanegas, Aliaga, and Bene{\v {s}}}}}
+\bibcite{verdie2015lod}{{55}{2015}{{Verdie et~al\unhbox \voidb@x \hbox {.}}}{{Verdie, Lafarge, and Alliez}}}
+\bibcite{xiao2008image}{{56}{2008}{{Xiao et~al\unhbox \voidb@x \hbox {.}}}{{Xiao, Fang, Tan, Zhao, Ofek, and Quan}}}
+\bibcite{yang2012parsing}{{57}{2012}{{Yang et~al\unhbox \voidb@x \hbox {.}}}{{Yang, Han, Quan, and Tai}}}
+\bibcite{zheng2010non}{{58}{2010}{{Zheng et~al\unhbox \voidb@x \hbox {.}}}{{Zheng, Sharf, Wan, Li, Mitra, Cohen-Or, and Chen}}}
+\bibcite{zhou20102}{{59}{2010}{{Zhou and Neumann}}{{Zhou and Neumann}}}
+\newlabel{tocindent-1}{0pt}
+\newlabel{tocindent0}{0pt}
+\newlabel{tocindent1}{6.25499pt}
+\newlabel{tocindent2}{10.34999pt}
+\newlabel{tocindent3}{18.198pt}
+\newlabel{TotPages}{{16}{16}{}{page.16}{}}

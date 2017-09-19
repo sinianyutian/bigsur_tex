@@ -1,0 +1,94 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: paper.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: paper.bib
+Name 2 in "Badrinarayanan, Vijay and Kendall, Alex, and Cipolla, Roberto" has a comma at the end for entry badrinarayanan2017segnet
+while executing---line 3325 of file ACM-Reference-Format.bst
+Name 2 in "Badrinarayanan, Vijay and Kendall, Alex, and Cipolla, Roberto" has a comma at the end for entry badrinarayanan2017segnet
+while executing---line 3325 of file ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--no number and no volume in affara2016large
+Warning--empty address in aichholzer1996novel
+Name 2 in "Badrinarayanan, Vijay and Kendall, Alex, and Cipolla, Roberto" has a comma at the end for entry badrinarayanan2017segnet
+while executing---line 3469 of file ACM-Reference-Format.bst
+Name 2 in "Badrinarayanan, Vijay and Kendall, Alex, and Cipolla, Roberto" has a comma at the end for entry badrinarayanan2017segnet
+while executing---line 3469 of file ACM-Reference-Format.bst
+Warning--no number and no volume in badrinarayanan2017segnet
+Warning--page numbers missing in both pages and numpages fields in badrinarayanan2017segnet
+Warning--no number and no volume in BrostowSFC:ECCV08
+Warning--no number and no volume in duygu:16:cgf
+Warning--page numbers missing in both pages and numpages fields in duygu:16:cgf
+Warning--no number and no volume in cmzp_symmCalib_tog13
+Warning--numpages field, but no articleno or eid field, in cmzp_symmCalib_tog13
+Warning--empty address in optBook08
+Warning--no number and no volume in cohen2014efficient
+Warning--empty publisher in Cordts2016Cityscapes
+Warning--empty address in Cordts2016Cityscapes
+Warning--page numbers missing in both pages and numpages fields in Cordts2016Cityscapes
+Warning--no number and no volume in dai2012learning
+Warning--no number and no volume in debevec1996modeling
+Warning--no number and no volume in Eigen2015-aj
+Warning--no number and no volume in golovinskiy2009shape
+Warning--no number and no volume in jia2014caffe
+Warning--page numbers missing in both pages and numpages fields in jia2014caffe
+Warning--no number and no volume in Kazhdan2006
+Warning--numpages field, but no articleno or eid field, in Kazhdan2006
+Warning--no number and no volume in kendall2015bayesian
+Warning--page numbers missing in both pages and numpages fields in kendall2015bayesian
+Warning--no number and no volume in kozinski2015mrf
+Warning--no number and no volume in laycock2003automatically
+Warning--no number and no volume in li2016manhattan
+Warning--no number and no volume in li20112d
+Warning--no number and no volume in martinovic2012three
+Warning--no number and no volume in matei2008building
+Warning--no number and no volume in poullis2009automatic
+Warning--no number and no volume in riemenschneider2012irregular
+Warning--no number and no volume in vanegas2010building
+Warning--empty institution in verdie2015lod
+Warning--no number and no volume in yang2012parsing
+Warning--no number and no volume in zhou20102
+You've used 59 entries,
+            5706 wiz_defined-function locations,
+            1634 strings with 25162 characters,
+and the built_in function-call counts, 71447 in all, are:
+= -- 10654
+> -- 3107
+< -- 2
++ -- 983
+- -- 1089
+* -- 5269
+:= -- 7408
+add.period$ -- 298
+call.type$ -- 59
+change.case$ -- 468
+chr.to.int$ -- 58
+cite$ -- 95
+duplicate$ -- 4893
+empty$ -- 3634
+format.name$ -- 1239
+if$ -- 18306
+int.to.chr$ -- 2
+int.to.str$ -- 0
+missing$ -- 216
+newline$ -- 520
+num.names$ -- 471
+pop$ -- 2138
+preamble$ -- 1
+purify$ -- 761
+quote$ -- 0
+skip$ -- 1736
+stack$ -- 0
+substring$ -- 4833
+swap$ -- 548
+text.length$ -- 134
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 1024
+warning$ -- 36
+while$ -- 419
+width$ -- 0
+write$ -- 1046
+(There were 4 error messages)

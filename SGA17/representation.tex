@@ -1,0 +1,17 @@
+
+\section{Representation}
+\label{sec:rep}
+
+We use \emph{procedural extrusions}~\shortcite{kelly2011interactive}, to create our mass-models:
+
+\begin{itemize}
+    \item Procedural extrusions are a parametrization of architecture into a 2D plan, and a set of 2D profiles associated with the edges of this plan. They allow arbitrary angled walls and roofs. We show how to fit them to the data sources.
+    \item Procedural extrusions are unstable when adjacent edges in the plan are near-parallel and near-adjacent.
+    \item Procedural extrusions with arbitrary plans and profiles are not guaranteed to terminate; we introduce measures to ensure they do.
+    \item Procedural extrusions do not always create rectangular faces, as many shape grammars do.
+    \item Upon each PE output face we use a shape-grammar~\cite{muller2006procedural} \{within a rectangular region\}to create additional detail.
+    \item PEs have fewer parameters than shape-grammars, and are better suited to reconstruction and optimisation.
+    \item PEs are able to express more complex architectural forms than Manhattan or cube-world reconstruction techniques.
+\end{itemize}
+
+Image: comparison of PEs to i) Manhattan techniques, ii) extruding GIS footprints iii) Shapegrammars?!

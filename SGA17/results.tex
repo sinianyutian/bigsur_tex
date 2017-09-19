@@ -1,0 +1,142 @@
+
+
+
+\begin{figure*}[t!]
+    \centering
+    \def\svgwidth{\linewidth}  
+    \input{../images/megafacades/london.pdf_tex}
+    \vspace*{-.1in}
+    \caption{{\it London: \LondonOC\ blocks.} Structured urban reconstruction spanning 37 blocks and 1,011 buildings. }
+    \label{fig:results_london_big}
+    \vspace{1cm}
+\end{figure*}
+
+\section{Results}
+\label{sec:results}
+
+
+\begin{figure}[b!]
+  \centering
+  \vspace{-0.6cm}
+    \includegraphics[width=\columnwidth]{../images/detroit/detroit.jpg}
+     %\vspace{0.cm}
+    \caption{
+    {\it Detroit}. \neu{Without building-\facades, our technique exhibits strong architectural regularization with the coarse mesh (pink) and \GISd\ (green, no interior edges) as inputs. See Table~\ref{table:runtimes1} for details.}}
+    \label{fig:detroitResults}
+     \vspace{0.6cm}
+    %\vnudge
+\end{figure}
+
+We implemented the proposed framework using Java and Python; the sourcecode is available online at the project page (\url{http://geometry.cs.ucl.ac.uk/projects/2017/bigsur}). We used Gurobi~\cite{gurobi} for binary integer programming and Caffe~\cite{jia2014caffe} for the CNN-based classification. The timings were recorded on an i7-7700K desktop \neu{(with the exception of the Oxford Circus example)}.
+
+\begin{table}[b!]
+\begin{center}
+\caption{Details for Figure~\ref{fig:results}. 
+Values are given for location, number of clean profiles ($|\mathcal{C}|$) and sweep edges ($|\mathcal{S}|$), binary variables (vars) and constraints (constr), number of output footprints (fp), and the solve times.}
+\label{table:runtimes2}
+\begin{tabular}{|c|c|c|c|c|c|c|c|} 
+  \hline
+  \small
+ Fig:col & location & $|\mathcal{C}|$ & $|\mathcal{S}|$ & vars & constr & fp & solve\\
+                    & (lat,long) &     &  &          &  & out & time \\
+ \hline
+ \hline
+ \ref{fig:results}:1 & 43.36635, & 75 & 61 & 32,242 &73,193&34& 15h \\ 
+   & -5.83256  &    &    &       &&&     \\
+ \ref{fig:results}:2 & 43.36584, & 73 & 56 & 74,694 & 148,945 &38& 5h \\ 
+ & -5.83189  &    &    &       &&&     \\
+ \ref{fig:results}:3 & 40.72191, & 46 & 30 & 23,172 & 49,941 & 37& 4h \\ 
+ & -74.00131  &    &    &       &&&   \\
+ \ref{fig:teaser}:1 & 51.51724, & 58 & 60 & 45,249 &88,171&28& 4h \\ 
+\ref{fig:results}:4 & -0.14199  &    &    &       &&&     \\
+ \hline
+ 
+ \end{tabular}
+\end{center}
+\end{table}
+
+We demonstrate our framework on building blocks from different cities: Detroit (see Figure~\ref{fig:detroitResults}), Manhattan and Oviedo  (see Figure~\ref{fig:results}), and London (see Figure~\ref{fig:teaser} for \LondonRS\ and Figure~\ref{fig:results_london_big} for \LondonOC). We selected building blocks to show a variety of inputs, from free standing single-family houses in Detroit to dense urban areas in the other three selected cities.
+\neu{We selected cities with accessible mesh and GIS data. \sout{GSV images were sometimes inconsistent - despite the wide coverage, there were problematic areas. For example, facades were occluded by traffic, vegetation, graffiti, and murals, or had too many unusual structures such as churches, cathedrals, window blinds, and other unorthodox window decorations. Such generalization issues are to be expected from any method which learns from limited data.}
+In our experiments, we found most of the parameters to be stable when the input data quality remained consistent. Typically, we adjusted two parameters before running the optimization: the thresholds for the creation of $\mathbb{G}$ and the mesh area for ignoring small clusters of horizontal lines. These parameter adjustments are relatively interactive because they occur before the slow BIP optimization.
+}
+
+
+\subsection{Timings}
+The computation times are dominated by the time it takes to compute a solution to the binary integer program. We list details of this optimization for selected blocks in Tables~\ref{table:runtimes2} and \ref{table:runtimes1}.
+Other components that contribute to the runtime are image processing to extract building-\facades (about 45 seconds per image), 
+mesh processing to extract \sweepedges and \cleanprofiles (less than 20 seconds per block), grid-based regularization of \facade elements (less than 3 seconds per \facade), basic mass model construction (less than 10 seconds per block), and \facade element insertion into the mass models (less than 10 seconds per block).
+
+
+ 
+\begin{table}[t!]
+\begin{center}
+
+\caption{\neu{Details for Figure~\ref{fig:detroitResults}, columns as in Table~\ref{table:runtimes2}.} }
+\label{table:runtimes1}
+\begin{tabular}{|c|c|c|c|c|c|} 
+
+\hline
+ Fig:row & location & $|\mathcal{C}|$ & $|\mathcal{S}|$ & vars & solve\\
+                    & (lat,long) &     &  &          & time \\
+ \hline\hline
+ \ref{fig:detroitResults}:1 & 42.38458, & 9 & 5 & 196 & 0.01s \\ 
+   &-82.95086  &   &   &     &      \\  
+ \ref{fig:detroitResults}:2 & 42.38458, & 8 & 7 & 657 & 0.05s \\
+ &-82.95084  &   &   &     &        \\   
+ \ref{fig:detroitResults}:3 & 42.38587, & 6 & 4 & 165 & 0.00s \\
+ &-82.95165  &   &   &     &        \\   
+ \ref{fig:detroitResults}:4 & 42.38614 & 23 & 13 & 1,799 & 2.92s \\
+ &-82.95125  &   &   &     &        \\   
+ \ref{fig:detroitResults}:5 & 42.38350, & 37 & 14 & 1,494 & 0.3s \\ 
+ &-82.94954  &   &   &     &        \\  
+ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{figure}[b]
+    \centering
+  \def\svgwidth{\linewidth}  
+    \input{../images/megafacades/problems.pdf_tex}
+  \caption{{\it Limitations.} (Top)~Curved \facades can become over-fragmented during  
+  sweep-line fitting and then adversely affect the \streetI\ analysis stage, resulting in missed \buildingfacade elements. 
+  (Bottom)~Another limitation is handling buildings with curved profiles. }
+  \label{fig:problems}
+  \vnudge
+\end{figure}
+
+\subsection{Comparison}
+We compared our work to other related algorithms in Figure~\ref{fig:comparis2}. As there exists no competing work to fuse multiple data sources, we limited our comparison to the processing of mass models. Therefore, we did not use {\GISd}s or \buildingfacades as input to any of the algorithms for this comparison; we used only the polygon soup meshes. To select competing work, we limited our choices to methods that had sourcecode available or where the authors helped us to generate results. The first method in our comparison is Poisson reconstruction~\cite{Kazhdan2006}, which can fill some smaller holes in the input, but the output looks similar to the input. Fitting a polygonal model using the Manhattan-world assumption~\cite{li2016manhattan} works well when the geometry conforms to such an assumption. However, we can see that over sloped roofs and within a larger block of buildings, the surface orientations vary too much, allowing the algorithm to produce good results on only one of the three inputs. Finally, we compare our method to structure-aware mesh decimation~\cite{salinas2015structure}, which also produces good results, but only a part of the model is simplified.
+
+
+\begin{figure*}[t!]
+    \centering
+        \includegraphics[width=\linewidth]{../images/results/comparis2.png}
+  \caption{{\it Comparison.} Columns left to right, input polygon soup mesh, Poisson reconstruction~\cite{Kazhdan2006}, Manhattan box fitting~\cite{li2016manhattan}, Structure-Aware Mesh Decimation~\cite{salinas2015structure} and our technique (without {\GISd}s or \buildingfacade inputs).}
+  \label{fig:comparis2}
+  \vnudge
+\end{figure*}
+
+
+\subsection{\LondonRS} 
+Finally, we also provide results for a larger area in London consisting of 37 building blocks and 1,011 buildings (see Fig.~\ref{fig:results_london_big}). We used 738 images to find 2,716 \buildingfacades giving rise to 19,377 detected features.
+We used a fixed computational budget of 1~hr for small blocks and 4~hrs for large blocks; the optimization returns the best solution found within the given time. A 40 core (10 $\times$ E5-2630) server was used for this example. 
+
+
+
+
+\subsection{Limitations} 
+Our system suffers from a few limitations. The PE representation of our mass models uses straight-line segments for \footprintpolygons and profiles, so we cannot correctly capture freeform buildings (e.g., buildings with a curved front or requiring a curved profile as in Figure~\ref{fig:problems}). \neu{In addition, our aggressive profile processing has the consequence that overhanging structures cannot be represented (e.g., bridges or balconies).} Another source of error is misclassifications of \facade imagery. This is particularly the case when our classifier encounters datasets with building styles for which it has not been trained.
+%
+We found datasets from certain European cities to be particularly challenging as the \streetI\ had to be obtained from narrow streets and alleys, resulting in strong perspective distortions. Other reasons for low accuracy classification results are very tall buildings, untrained features (e.g., fire escapes, buses, statues, etc.), or recessed floors that are not visible from street-level imagery.
+%
+While we expect that our classification results will continue to improve with access to more annotated training data, in the interim, allowing the user to correct mistakes would be a good alternative. \neu{Another observed failure case occurs when roof gutters do not align to detected \buildingfacade boundaries, as our optimization assumes such situations are noisy data.}
+%
+%
+Finally, our core optimization relies on a BIP solver that globally combines the input data sets. This prevents us from developing an interactive system because the resulting optimization can run for multiple hours for larger city blocks. However, because the actual coupling is at the city-block level, the problem does not amplify with increasing city size as long as the complexity of the city blocks remains constant. 
+
+
+
+
+

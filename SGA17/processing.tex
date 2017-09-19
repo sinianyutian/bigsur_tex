@@ -1,0 +1,196 @@
+\section{Implementation Details}
+\label{sec:processing}
+
+
+\subsection{Extracting Sweep-edges and Profiles}
+\label{sec:profiles}
+
+We now describe the profile analysis of the 3D mesh and \GISds.
+%
+First, we align the mesh with the \GISd boundary. Then,  we create and cluster \emph{\horizontallines} (Figure~\ref{fig:profs}b, c) to find the \emph{\prominentfaces} of the \block (Figure~\ref{fig:profs}d). Each such face is used to compute a {\em \sweepedge} on the \groundplane, along which we extract vertical {\em \rawprofiles} from the mesh (Figure~\ref{fig:profs}e). The profiles are processed to create a small, yet representative, set of {\em \cleanprofiles}, $\mathcal{C}$. 
+
+First, we align the mesh to the \GISds  using the GPS position associated with the mesh. We use the \GISd boundary to discard mesh geometry more than a street-lane width away (typically 4m) from the \block of interest.
+
+\begin{figure*}[t!]
+  \def\svgwidth{2.2\columnwidth}  
+  \hspace*{-5mm}\input{../images/megafacades/profiles_test.pdf_tex}
+  \vspace{-1cm}
+  \caption{{\it Sweep-edges and profile analysis.}   A horizontal slice of the mesh (a, orange), has polylines fitted to it (b) and is regularized by the GIS information (b, green). These are clustered from the \seedlines (c, bold lines), and the associated \prominentfaces~(d), which can be used to find the raw-profiles (e). }
+  \label{fig:profs}
+\end{figure*}
+
+We found \horizontallines to be good indicators of predominant directions in architectural meshes; \neu{ they also support the strong horizontal edges that are characteristic of PEs.} To find such lines, we slice the mesh horizontally (\neu{we used 20cm intervals}), and simplify each such slice using polyline fitting (Figure ~\ref{fig:profs}a).
+%; this gives a map of all important (non-horizontal) faces in the mesh (Figure ~\ref{fig:profs} a). 
+Because the mesh may have holes and noise, we use the directions in the \GISds to regularize the line fitting (Figure~\ref{fig:profs}b). 
+Specifically, if lines are within $20^\circ$ of the closest GIS edge, they are rotated to match the GIS line's orientation.
+
+
+We now cluster the fitted \horizontallines based on their orientation to identify \prominentfaces of the \block (e.g., a south-facing wall). The seed of the cluster is the longest \horizontalline (Figure~\ref{fig:profs}c, bold). From this \seedline we progressively build the cluster by adding neighboring lines (from slices above and below) in a ``floodfill'' fashion, ensuring that each line's orientation matches that of the \seedline (\neu{within $20^\circ$}).
+Such a cluster of lines defines a \emph{\prominentface} over the mesh. We continue to create \prominentfaces by taking the next longest unused \horizontalline as a seed and repeating the floodfill.
+We discard any \prominentfaces that cover a small area of the mesh; we use a threshold of approximately $30m^2$, which balances preserving detail with removing noise.
+
+The \prominentfaces are now sampled to obtain profiles (Figure ~\ref{fig:profs}d). A \emph{profile} is a weakly $y$-monotone polychain (i.e., every point is greater, or equal, in height to every preceding point). This monotonic property is required by PEs, which we observe is satisfied by a large majority of building types. 
+% 
+%
+We continue to extract a set of \rawprofiles directly from the 3D mesh; the mesh is sliced perpendicularly to the \seedline's direction at regular intervals (\neu{20cm}). Nearly horizontal mesh faces (with a normal \neu{approximately $5^\circ$ from vertical}), or those not associated with the \prominentface are ignored.  We create a \rawprofile by traversing a portion of the slice, starting at the closest point on the slice to the \prominentface's \seedline. The traversal takes place upwards and downwards, selecting monotonic line-segments from the slice to add to the profile. It jumps over small gaps and non-monotonic sections of the slice by searching for the next point in a small locale (\neu{approximately 2m}).
+
+
+
+\begin{figure}[b]
+    \centering
+  \def\svgwidth{1\columnwidth}  
+    \input{../images/megafacades/raw-profs.pdf_tex}
+    \caption{\textit{Raw- and clean-profiles.} Left: Each color represents a cluster of adjacent and similar \rawprofiles from Figure~\ref{fig:teaser}. Right:~A cluster of \rawprofiles~(grey) has line segments fitted to it~(purple) and is finally regularized to yield a \cleanprofile~(blue).}
+    \label{fig:profile_cleanup}
+  \vnudge
+\end{figure}
+
+
+We now use the \rawprofiles to find a smaller, yet representative, set of \cleanprofiles, $\mathcal{C}$.
+%
+We first cluster the \rawprofiles along each \sweepedge using profile distance. 
+Given two monotone profiles, $p_i$ and $p_j$, we define the profile difference at a height, $y$, as
+% 
+\begin{multline*}
+\vspace*{-.06in}
+\delta(p_i, p_j, y) =\\
+\begin{cases}
+    \sqrt{(x(p_i, y) - x(p_j, y))^2 +
+    4(\angle (p_i, y) - \angle (p_j,y ) )^2} \\
+    \quad\quad\quad\quad \text{if } p_i \text{ and } p_j \text{ are defined at height y,}\\
+    10       \quad\quad\quad \text{otherwise.}
+\end{cases}
+\end{multline*}
+%
+where $x(p_i, y)$ and  $\angle(p_i, y)$ are, respectively, the x-position and angle (in radians), of profile $p_i$ at height $y$. When the profiles range between heights $y_l$ and $y_u$, the cumulative distance function is then the mean horizontal distance between the profiles discretized over the vertical range $[y_l,y_u]$ as
+% 
+$$
+\te{d}(p_i, p_j, y_l, y_u) :=  {\sum_{y \in [y_l,y_u]} \delta(p_i, p_j, y) } / {(y_u-y_l)}.
+$$
+%
+%
+The \rawprofiles are clustered by examining consecutive profiles along each \sweepedge, starting a new cluster whenever
+$$
+d(p_\te{last}, p_\te{next}, 0, \te{max}_Y(p_\te{last}, p_\te{next})) > t,
+$$
+%
+where $t$ is a threshold value and $\max_Y(p_i, p_j)$ is the maximum height of profiles $p_i$ and $p_j$. Small clusters with fewer than five profiles are discarded. Empirically, we find that forming clusters from such contiguous portions of \sweepedges gave better results than techniques such as spectral clustering, because it prioritizes the strong spatial-correlation between adjacent \rawprofiles.
+Examples of such clusters are shown in Figure~\ref{fig:profile_cleanup}-left.
+
+
+
+To create a simplified \emph{\cleanprofile} from each cluster of \rawprofiles, we fit a set of line segments \neu{(Figure~\ref{fig:profile_cleanup}-right)}. Using strong architectural priors, we regularize these lines into a \cleanprofile. Because of the low resolution of our input meshes, we found we could aid regularization by requiring the profiles to be both vertically \emph{and} horizontally monotonic (note that PEs require only that the profiles be vertically monotonic).
+
+We used the following rules to create the \cleanprofiles~(see Figure~\ref{fig:profile_cleanup}-right): %
+(i)~lines that are nearly horizontal or vertical are snapped to these 
+orientations. Near the ground, this snapping is very aggressive to mitigate the effect of occluders; 
+(ii) lines that do not form part of vertically and horizontally monotonic profiles are either removed or sliced so that they do; 
+(iii)~lines that are near the ground are extended to the ground; and, finally, 
+(iv)~if two adjacent lines could be extended to intersect within 2m of an end of both lines, we extend the lines to this intersection.
+%
+We add the resulting \cleanprofile to the  profile set, $\mathcal{C}$.
+
+A large number of \cleanprofiles in $\mathcal{C}$ are computationally expensive in the optimization stage (Section~\ref{sec:globopt}). Hence, we aggressively reduce them by: (i)~removing pairs of similar profiles from the pool using $d$ \neu{(we used $d() < 1$)}; (ii) discarding any profile that is not preferred by some cluster of raw profiles, and (iii)~replacing all simple vertical profiles with a single vertical profile at the start of $\mathcal{C}$.
+
+
+\begin{wrapfigure}[7]{r}{0.5\columnwidth}
+\vspace*{-.2in}
+\hspace*{-.1in}
+  \def\svgwidth{0.52\columnwidth}  
+    \input{../images/megafacades/prof-line.pdf_tex}
+\end{wrapfigure}
+
+Finally, for each \prominentface, we compute a \emph{\sweepedge}. \Sweepedges represent potential wall positions over the \groundplane, and, along with suitable vertical \cleanprofiles, create the 3D mass models.
+We find a \sweepedge by projecting the \seedline of each \prominentface onto the \groundplane (inset; orange line), and offsetting it to lie close to the start of the profiles (inset; pink line).
+\neu{This offset is necessary because the found \seedline may not be on the structure's wall.}
+The offset is the mean horizontal distance from the \seedline to the bottom of the \rawprofiles.
+This set of \sweepedges, $\mathcal{S}$, represents the potential wall-positions.
+
+\subsection{Acquiring Street-level Imagery}
+\label{sec:acquiring-images}
+
+We use \streetI\ from \acf{GSV} to estimate the locations of \facade elements such as windows, balconies, doors, and moldings, as well as the locations of \facade boundaries. 
+Unprocessed \GSV images are $360^\circ$ panoramas including approximate pose data (position and orientation of the rig used to capture the images) that are estimated using GPS and a variety of additional techniques described by Anguelov et al.~\shortcite{anguelov2010google}. 
+Based on the \GSV pose information and \GISds, we project the \GSV panorama images onto the expected \facade plane to obtain a (roughly) rectified {\em projected image}. 
+
+These projected images are generated at a resolution of 40 pixels / meter. We crop the images to a fixed horizontal field of view of $120^\circ$. This is centered on the projection of the paranorama center onto the \facade plane. We use a fixed field of view  to avoid distortion caused by projecting the panorama at extreme angles. This results in  more than one overlapping image of each \facade and many images containing only a portion of a \facade. We note that some \facades have no \GSV images because of legal and physical constraints on photography. A typical example of missing imagery is the private courtyards found in the center of many European city blocks. Next, we describe how to find \facade features in the projected images.
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[t!]
+  \def\svgwidth{\columnwidth}  
+    \input{../images/megafacades/independant-labels-comparison.pdf_tex}
+\caption{{\it Training data and \facade\ classification.}\sout{ The independent labels used to train an image segmentation model;} Top-left: The ground truth used to for the `\Facade' and `Window' labels. Remainder: The source image (top-right) used to compare a model trained to recognize a single set of disjoint labels (bottom-left) with one trained to recognize independent sets of labels for each type of feature with edge labels (bottom-right). Each model was trained for 150 Epochs. The second option leads to crisper features.}
+\label{fig:edge-compare}
+\end{figure}
+
+
+\subsection{Analyzing Street-level Imagery}
+\label{sec:cnns}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+Starting from input \streetI, our goal is to detect each \facade's location and dimension, and its building elements (e.g., windows, balconies, etc.). A \emph{\buildingfacade} records this information for one image and one estimated \facade; we refer to the set of \buildingfacades as $\mathcal{B}$.
+
+In practice, we found the \GSV pose estimates to be insufficient to produce projected \streetI that is sufficiently aligned with \GIS data. In the example of London, we observed overlaid \GSV imagery to deviate from \GIS building footprints by nearly 3m on the \facade plane, or $5^\circ$ in \GSV panoramas. 
+\neu{Therefore, a pre-processing step removes parts of the images that are unlikely to be part of a \facade and then rectifies each image. The unwanted features} are segmented and masked-out using the \emph{Bayesian SEGNET} CNN~\cite{kendall2015bayesian,badrinarayanan2017segnet}. This network was trained on urban street scenes using CamVid data~\cite{BrostowSFC:ECCV08} and then refined using CityScapes data \cite{Cordts2016Cityscapes} \neu{to identify} parts of images that are likely to have \facade features. \neu{We then} rectify based on the edges within that region using the method proposed by Affara et al.~\shortcite{affara2016large}. %All further processing is done on these  images. 
+
+Next, we identify the \facade elements within these rectified images. We refine the probabilistic Bayesian SEGNET architecture to segment a set of labels for architectural \facade element features using the CMP Facade dataset \cite{tylecek2012cmp}, the dataset used by Affara et al.~\shortcite{affara2016large}, and an additional dataset of 800 facades that we annotated directly from \GSV images of London, Oviedo, and New York. We use this \emph{SEGNET-FACADE} model (available at: \url{https://github.com/jfemiani/facade-segmentation}) to assign per-pixel probabilities to the images for each feature class. 
+
+
+\begin{figure}[t!]
+%\vspace*{-.15in} 
+
+  \def\svgwidth{\columnwidth}  
+    \input{../images/megafacades/facade-cuts.pdf_tex}
+\caption{{\it Finding \facade extents.} Left: We split images with multiple \facades based on the peaks of the vertical sums of the \facade `Edge' scores that are output by the segmenter (superimposed in blue over the image); \facades are split at the highest point of each interval where the projection's value is more than one standard deviation ($\sigma$) above its mean ($\mu$). Right: The integral of the detected 'Sky' label (green) is used with a threshold to identify the top of the \facade.}
+\label{fig:facade-cuts} 
+\end{figure}
+
+
+
+\begin{figure*}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{../images/results/results.png}
+    \vspace*{-.1in}
+    \caption{{\it Oviedo, Manhattan, and London.} City blocks from Oviedo (left, center-left), Manhattan (center-right) and London: \LondonRS\ (right, as Figure~\ref{fig:teaser}). Top: Our results. Bottom: input \GISds~(green) and optimization output floorplans (blue). See also Table~\ref{table:runtimes2}.}
+    \label{fig:results}
+\end{figure*}
+
+Traditional segmentation approaches, including SEGNET, assign a single label to each pixel in an image. In contrast, we treat \facade segmentation as a number of separate labeling tasks, one for each class of \facade element (window, shop, balcony, molding, door etc.), and one for the \facade extent itself. Each task assigns one of four labels to each pixel; 
+`Negative', `Positive', `Unspecified' (which is ignored), or `Edge'. The 'Edge' label is automatically  assigned to a thin region (6 pixels spanning an estimated 15cm) around the edge of each feature, with the exception of vertical \facade edges, where the `Edge' label is assigned to a wider region (15 pixels wide, spanning approximately 38cm). Using a separate `Edge' label ensures more weight is given to the training-loss in these pixels \neu{due to median frequency balancing \cite{Eigen2015-aj}}. 
+Empirically, these improvements result in sharper features, as shown in \figref{fig:edge-compare}, which is useful for isolating individual feature instances. The CNN processes images at a resolution of $512 \times 512$ pixels. We rescale all images to a height of $512$ pixels and crop the widths. During inference, several horizontal tiles are used to cover an image.
+
+
+
+The \GSV images often contain multiple \facades, and it is important to separate them into different individual \buildingfacades for the optimization. 
+At the inference stage, we sum each pixel column's Bayesian SEGNET-FACADE scores \neu{for the `Edge' label}. This one-dimensional signal peaks at each \facade boundary. The signal is dilated by 60 pixels (1.5m) in order to merge the dual-peaks that can occur if the \streetI is imperfectly rectified, \neu{or if there are stitching artifacts (see \figref{fig:facade-cuts})}. We extract peaks as local maxima that are more than one standard deviation above the mean of the dilated signal (see Figure \ref{fig:facade-cuts}-left). Each \facade image is split at these peaks to produce \emph{\buildingfacades}. For each \buildingfacade, we produce axis-aligned bounding boxes of all features as shown in \figref{fig:facade-cuts}-right.
+%
+In order to estimate the height of each \buildingfacade, we use \neu{the original} SEGNET to label pixels as `Sky'. The $85^{\text{th}}$ percentile of the scores at each pixel-row forms a one dimensional sky signal (see the green region of \figref{fig:facade-cuts}-right). The top of the \facade is the lowest point where the sky signal crosses $50\%$. \neu{These width and height estimates are assigned to each \buildingfacade and used in the optimization stage. Because we know the location of the \facade image-plane in $\mathbb{R}^3$, the \buildingfacade has an estimated 3D position, as do the associated features.}
+
+
+\neu{
+\subsubsection{Training and Evaluation}
+We trained SEGNET-FACADE on $80\%$ (1173 images) of the data we collected, an additional $20\%$~(293 images) were used to evaluate the precision, recall, and $F_1$-scores of our approach.  
+SEGNET-FACADE obtained a per-pixel precision of $96\%$, recall of $69\%$, and an $F_1$ of $0.80$.
+By comparison SEGNET trained on the same data obtained a per-pixel precision of $73\%$, recall of $62\%$ and an $F_1$ of $0.67$.
+We also evaluated per-object precision by defining a successful match between objects as an intersection-over-union over $50\%$. The per-object scores gave a precision of $88\%$, recall of $68\%$, and an $F_1$ score of $0.77$. We consider these to be useful results as many of the \facade images were collected ``in the wild'' from \ac{GSV} and imperfectly rectified. In comparison, SEGNET acheived precision of $36\%$ and recall of $28\%$, with an $F_1$ of $0.32$. The recent method of Affara et al. \shortcite{affara2016large} had a per-object precision of $85\%$, recall of $52\%$, and an $F_1$ score of $0.64$ on the same data. 
+}
+
+
+\subsubsection{Collecting color estimates} 
+Although a \facade may contain a variety of texture and color patterns,  we limit ourselves to a single color; additional color variation comes from the inclusion of \facade elements with fixed colors, such as windows, molding, cornices, sills, and balconies. To estimate the color of the walls, we mask out all regions that have been identified as any other feature and estimate the mode color in the remaining pixels. Specifically, we use the \textit{Lab} color space and select $50$ colors randomly from the (unmasked) \facade. The color with the most matches is selected as representative of the \facade. \neu{Optionally, a separate color can be used for the ground floor and for the higher stories. In this case, we estimate the ground floor height by finding the highest row in the image with the `Shop' label.  }
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
